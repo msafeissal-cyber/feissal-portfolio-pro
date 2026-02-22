@@ -53,17 +53,27 @@ header h1 {
 .project-card:hover {
     transform: translateY(-10px);
 }
-
+/* Base button */
 .demo-btn {
     display: inline-block;
-    background: #4f46e5;
-    color: white;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s ease;
+    color: white;
+    transition: 0.3s ease, transform 0.2s;
 }
+
+/* Colors per project */
+.demo-btn.bakery { background: #f97316; }       /* Orange */
+.demo-btn.startup { background: #4f46e5; }     /* Indigo */
+.demo-btn.blog { background: #10b981; }        /* Green */
+
+/* Hover effects */
+.demo-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+} 
 
 .demo-btn:hover {
     background: #3730a3;
