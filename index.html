@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <header>
-    <img src="profile.png" alt="Feissal Dev" class="profile-pic">
-    <h1>Feissal Dev</h1>
-    <p>Frontend Developer | Building modern & responsive websites</p>
-</header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feissal Dev | Frontend Developer</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -13,49 +11,53 @@
 
 <!-- Header -->
 <header>
+    <img src="images/profile.jpg" alt="Feissal Dev" class="profile-pic">
     <h1>Feissal Dev</h1>
     <p>Frontend Developer | Building modern & responsive websites</p>
 </header>
 
 <!-- About Me -->
-<section id="about">
+<section id="about" class="fade-in">
     <h2>About Me</h2>
     <p>I help businesses grow online by creating clean, fast, and responsive websites that attract customers and increase trust.</p>
 </section>
 
 <!-- Projects -->
 <section id="projects">
-    <h2>Practice Projects</h2>
+    <h2 class="fade-in">Practice Projects</h2>
 
     <div class="fade-in project-card">
-    <h3>Tech Company Landing Page</h3>
-    <p>Modern responsive website for a tech company.</p>
-    <a href="https://yourusername.github.io/TechCompany/" class="demo-btn bakery" target="_blank">Live Demo</a>
-</div>
+        <h3>Tech Company Landing Page</h3>
+        <p>Modern responsive website for a tech company.</p>
+        <a href="#" class="demo-btn bakery" target="_blank">Live Demo</a>
+    </div>
 
     <div class="fade-in project-card">
-    <h3>Tech Company Landing Page</h3>
-    <p>Modern responsive website for a tech company.</p>
-    <a href="https://yourusername.github.io/TechCompany/" class="demo-btn bakery" target="_blank">Live Demo</a>
-</div>
+        <h3>Real Estate Business Website</h3>
+        <p>Clean website for showcasing properties and agents.</p>
+        <a href="#" class="demo-btn startup" target="_blank">Live Demo</a>
+    </div>
 
     <div class="fade-in project-card">
-    <h3>Tech Company Landing Page</h3>
-    <p>Modern responsive website for a tech company.</p>
-    <a href="https://yourusername.github.io/TechCompany/" class="demo-btn bakery" target="_blank">Live Demo</a>
-</div>
+        <h3>Personal Brand Portfolio</h3>
+        <p>Portfolio website to display skills, projects, and contact.</p>
+        <a href="#" class="demo-btn blog" target="_blank">Live Demo</a>
+    </div>
+</section>
 
 <!-- Contact -->
-<section id="contact">
+<section id="contact" class="fade-in">
     <h2>Contact Me</h2>
     <p>Email: feissaldev@email.com</p>
     <p>Available for freelance projects.</p>
 </section>
 
 <!-- Footer -->
-<footer>
+<footer class="fade-in">
     <p>© 2026 Feissal Dev – All Rights Reserved.</p>
 </footer>
+
+<!-- Fade-in animation script -->
 <script>
 const faders = document.querySelectorAll('.fade-in');
 
@@ -76,5 +78,6 @@ faders.forEach(fader => {
     appearOnScroll.observe(fader);
 });
 </script>
+
 </body>
-</html>
+            </html> 
