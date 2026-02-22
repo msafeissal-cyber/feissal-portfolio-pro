@@ -2,62 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Feissal's Kitchen</title>
+    <title>ÉLITE Dining</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Feissal's Kitchen</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#menu">Menu</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+<header class="hero">
+    <div class="overlay">
+        <h1>ÉLITE Dining</h1>
+        <p>Where Taste Meets Luxury</p>
+        <a href="#reservation" class="btn">Reserve a Table</a>
+    </div>
+</header>
 
-    <section class="hero">
-        <h2>Experience Luxury Dining</h2>
-        <p>Where taste meets elegance.</p>
-        <a href="#menu" class="btn">View Menu</a>
-    </section>
+<section class="menu">
+    <h2>Signature Dishes</h2>
 
-    <section id="about" class="section">
-        <h2>About Us</h2>
-        <p>Welcome to Feissal's Kitchen — a place where passion for food meets premium atmosphere. 
-        We serve the finest dishes made with fresh ingredients and love.</p>
-    </section>
-
-    <section id="menu" class="section">
-        <h2>Our Special Menu</h2>
-
-        <div class="menu-items">
-            <div class="item">
-                <h3>Grilled Steak</h3>
-                <p>$25</p>
-            </div>
-
-            <div class="item">
-                <h3>Seafood Pasta</h3>
-                <p>$18</p>
-            </div>
-
-            <div class="item">
-                <h3>Classic Burger</h3>
-                <p>$12</p>
-            </div>
+    <div class="menu-grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="">
+            <h3>Premium Steak</h3>
+            <p>Perfectly grilled Wagyu with truffle butter.</p>
         </div>
-    </section>
 
-    <section id="contact" class="section">
-        <h2>Contact Us</h2>
-        <p>Email: feissalkitchen@email.com</p>
-        <p>Phone: +233 000 000 000</p>
-    </section>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee" alt="">
+            <h3>Seafood Delight</h3>
+            <p>Fresh lobster & king prawns.</p>
+        </div>
 
-    <footer>
-        <p>© 2026 Feissal's Kitchen. All rights reserved.</p>
-    </footer>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" alt="">
+            <h3>Chef Special Pasta</h3>
+            <p>Handmade pasta with rich creamy sauce.</p>
+        </div>
+    </div>
+</section>
+
+<section id="reservation" class="reservation">
+    <h2>Book Your Experience</h2>
+    <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="date" required>
+        <input type="time" required>
+        <button type="submit">Reserve Now</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2026 ÉLITE Dining | Designed by Feissal</p>
+</footer>
 
 </body>
 </html>
