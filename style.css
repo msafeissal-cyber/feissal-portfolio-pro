@@ -122,3 +122,12 @@ html {
 html {
     scroll-behavior: smooth;
 }
+.profile-pic {
+    width: 150px;           /* size of picture */
+    height: 150px;          /* keep square */
+    border-radius: 50%;     /* makes it round */
+    object-fit: cover;      /* crops nicely if not perfectly square */
+    display: block;
+    margin: 0 auto 20px auto; /* center above your name */
+    border: 4px solid #4f46e5; /* optional colored border */
+}
