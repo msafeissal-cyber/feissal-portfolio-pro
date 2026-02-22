@@ -79,13 +79,14 @@ section {
     transition: 0.3s ease, transform 0.2s;
 }
 
-.demo-btn.bakery { background: #f97316; }   /* Orange */
-.demo-btn.startup { background: #4f46e5; }  /* Indigo */
-.demo-btn.blog { background: #10b981; }    /* Green */
+/* Gradient Buttons */
+.demo-btn.bakery { background: linear-gradient(135deg, #f97316, #fbbf24); }
+.demo-btn.startup { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+.demo-btn.blog { background: linear-gradient(135deg, #10b981, #6ee7b7); }
 
 .demo-btn:hover {
-    filter: brightness(1.1);
-    transform: translateY(-2px);
+    filter: brightness(1.15);
+    transform: translateY(-3px);
 }
 
 /* FOOTER */
@@ -117,4 +118,7 @@ html {
 .fade-in.show {
     opacity: 1;
     transform: translateY(0);
+}
+html {
+    scroll-behavior: smooth;
 }
