@@ -1,9 +1,10 @@
 body {
-    background: #f8fafc;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    background: #111827;   /* dark tech vibe */
+    color: #f9fafb;        /* off-white text */
     margin: 0;
     padding: 0;
-}
+} 
 header {
     background: white;
     padding: 20px;
@@ -11,10 +12,10 @@ header {
 } 
 
 header h1 {
-    margin: 0;
-    font-size: 32px;
-    color: #7c3aed;
-}
+    font-size: 36px;
+    font-weight: 700;
+    color: #4f46e5;
+} 
 
 .about {
     display: flex;
