@@ -8,7 +8,7 @@ body {
 header {
     text-align: center;
     padding: 40px 20px;
-    background: #1e293b;
+    background: #1e3a8a;
 }
 
 header h1 {
@@ -59,7 +59,7 @@ header h1 {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 15px;
-    background: #38bdf8;
+    background: #1e3a8a;
     color: black;
     text-decoration: none;
     border-radius: 5px;
