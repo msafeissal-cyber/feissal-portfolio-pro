@@ -131,3 +131,27 @@ footer {
 html {
     scroll-behavior: smooth;
 }
+/* About & Contact Cards */
+.card {
+    background: #f3f4f6;           /* light gray for subtle contrast */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+    color: #1f2937;                /* darker heading color */
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #374151;                /* standard text color */
+    line-height: 1.6;
+    font-size: 16px;
+}
