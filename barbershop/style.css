@@ -105,14 +105,18 @@ input, button {
 }
 
 button {
-  background: #ffcc00;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+    background: gold;
+    color: black;
+    border: none;
+    padding: 14px 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-  background: white;
+    background: white;
+    transform: translateY(-3px);
 }
 
 footer {
@@ -157,4 +161,20 @@ nav ul li a:hover {
 }
 html {
     scroll-behavior: smooth;
+}
+.statement {
+    text-align: center;
+    padding: 120px 20px;
+    background: #111;
+}
+
+.statement h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.statement p {
+    font-size: 1.1rem;
+    color: #ccc;
 }
