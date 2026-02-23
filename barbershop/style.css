@@ -30,7 +30,7 @@ body {
     color: #d4af37; /* Gold */
     letter-spacing: 3px;
 }
-
+text-shadow: 0 4px 15px rgba(0,0,0,0.6);
 .hero p {
     font-size: 18px;
     margin: 15px 0;
