@@ -155,3 +155,6 @@ nav ul li a:hover {
 }.hero {
     padding-top: 120px;
 }
+html {
+    scroll-behavior: smooth;
+}
