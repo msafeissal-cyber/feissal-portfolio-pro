@@ -61,6 +61,18 @@ window.addEventListener("scroll", () => {
 <footer>
     <p>© 2026 NovaTech Solutions. All rights reserved.</p>
 </footer>
+<script>
+const sections = document.querySelectorAll("section");
 
+window.addEventListener("scroll", () => {
+  sections.forEach(section => {
+    const sectionTop = section.getBoundingClientRect().top;
+    if (sectionTop < window.innerHeight - 100) {
+      section.style.opacity = "1";
+      section.style.transform = "translateY(0)";
+    }
+  });
+});
+</script>
 </body>
 </html>
