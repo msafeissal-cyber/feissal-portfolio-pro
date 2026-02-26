@@ -85,3 +85,13 @@ nav a {
     transform: translateY(-12px);
     box-shadow: 0 0 25px #00f5ff;
 } 
+section {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease;
+}
+
+section.show {
+    opacity: 1;
+    transform: translateY(0);
+        }
