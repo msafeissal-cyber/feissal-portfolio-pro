@@ -17,17 +17,17 @@ nav a {
     margin-left: 20px;
     text-decoration: none;
 }
-
 .hero {
     height: 100vh;
-    background: linear-gradient(135deg, #1e3c72, #2a5298, #4facfe);
+    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: white;
     padding: 20px;
-} 
+}
+
 
 .hero h1 {
     font-size: 3rem;
