@@ -1,4 +1,10 @@
 body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: white;
+}
+body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #0f172a;
@@ -18,15 +24,22 @@ nav a {
     text-decoration: none;
 }
 .hero {
-    height: 100vh;
-    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    padding: 20px;
+  padding: 100px 20px;
+  text-align: center;
 }
+
+.hero h1 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: #94a3b8;
+  font-size: 1.2rem;
+  margin-top: 15px;
+} 
 
 
 .hero h1 {
@@ -42,34 +55,39 @@ nav a {
     opacity: 0.9;
 }
 
-.hero button {
-    margin-top: 25px;
-    padding: 15px 35px;
-    border-radius: 50px;
-    border: 2px solid #00f5ff;
-    background: transparent;
-    color: #00f5ff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  margin-top: 20px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
 }
 
-.hero button:hover {
-    background: #00f5ff;
-    color: black;
-    box-shadow: 0 0 25px #00f5ff;
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #06b6d4;
 } 
 .about, .services, .contact {
     padding: 80px 20px;
     text-align: center;
 }
 
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+.project-card {
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px;
+  transition: 0.3s ease;
 }
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(59,130,246,0.6);
+} 
 
 
 .services div {
