@@ -113,3 +113,10 @@ section.show {
     opacity: 1;
     transform: translateY(0);
         }
+.typing {
+    font-size: 1.2rem;
+    color: #00f2ff;
+    margin: 10px 0;
+    height: 25px;
+    font-weight: 500;
+}
