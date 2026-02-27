@@ -5,6 +5,36 @@
     <title>NovaTech Solutions</title>
     <link rel="stylesheet" href="style.css">
 </head>
+</script>
+    <script>
+const words = ["Web Development", "UI/UX Design", "Digital Innovation"];
+let i = 0;
+let j = 0;
+let currentWord = "";
+let isDeleting = false;
+const typingText = document.getElementById("typing-text");
+
+function type() {
+    currentWord = words[i];
+
+    if (isDeleting) {
+        typingText.textContent = currentWord.substring(0, j--);
+    } else {
+        typingText.textContent = currentWord.substring(0, j++);
+    }
+
+    if (!isDeleting && j === currentWord.length) {
+        setTimeout(() => isDeleting = true, 1000);
+    } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+    }
+
+    setTimeout(type, isDeleting ? 50 : 100);
+}
+
+type();
+</script>
 <body>
 
 <header>
@@ -66,7 +96,6 @@ window.addEventListener("scroll", () => {
 });
 </script>
     <script>
-const sections = document.querySelectorAll("section");
 
 window.addEventListener("scroll", () => {
     const triggerBottom = window.innerHeight * 0.85;
