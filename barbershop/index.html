@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbershop Website | Feissal Dev</title>
+    <title>Modern Barbershop | Feissal Dev</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
     <style>
-html {
-    scroll-behavior: smooth;
-}
-</style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
 <body>
 
 <!-- Header -->
@@ -30,7 +30,19 @@ html {
         <a href="#services" class="btn">View Services</a>
     </div>
 </section>
-<!-- Contact / Booking -->
+
+<!-- Services -->
+<section id="services" class="fade-in">
+    <h2>Our Services</h2>
+    <div class="cards">
+        <div class="card">Haircuts</div>
+        <div class="card">Beard Styling</div>
+        <div class="card">Shaves</div>
+        <div class="card">Kids Haircuts</div>
+    </div>
+</section>
+
+<!-- Booking Form -->
 <section id="contact" class="fade-in">
     <h2>Book an Appointment</h2>
     <form id="bookingForm">
@@ -47,23 +59,6 @@ html {
         <input type="date" name="date" required>
         <button type="submit">Book Now</button>
     </form>
-</section>
-
-<script>
-const bookingForm = document.getElementById("bookingForm");
-
-bookingForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // prevent page refresh
-    alert("Thank you! Your appointment request has been received.");
-    bookingForm.reset();
-});
-</script> 
-
-<!-- Contact / Booking -->
-<section id="contact" class="fade-in">
-    <h2>Book an Appointment</h2>
-    <p>Email: contact@modernbarbershop.com</p>
-    <p>Phone: +228 90 123 4567</p>
 </section>
 
 <!-- Footer -->
@@ -90,6 +85,17 @@ const appearOnScroll = new IntersectionObserver(function(entries, observer) {
 
 faders.forEach(fader => {
     appearOnScroll.observe(fader);
+});
+</script>
+
+<!-- Booking form interaction -->
+<script>
+const bookingForm = document.getElementById("bookingForm");
+
+bookingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Thank you! Your appointment request has been received.");
+    bookingForm.reset();
 });
 </script>
 
