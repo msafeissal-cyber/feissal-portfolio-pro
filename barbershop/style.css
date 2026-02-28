@@ -219,3 +219,24 @@ form button:hover {
 .hero-text .btn:hover {
     background: white;
     }
+/* Enhanced fade-in */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease-out;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add small delays for cards */
+.cards .card:nth-child(1) { transition-delay: 0.1s; }
+.cards .card:nth-child(2) { transition-delay: 0.2s; }
+.cards .card:nth-child(3) { transition-delay: 0.3s; }
+.cards .card:nth-child(4) { transition-delay: 0.4s; }
+
+/* Hero and Booking */
+.hero { transition-delay: 0.2s; }
+#contact { transition-delay: 0.3s; }
