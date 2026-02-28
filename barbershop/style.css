@@ -1,185 +1,116 @@
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: 'Inter', sans-serif;
-    background-color: #0e0e0e;
-    color: #ffffff;
-}
-
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #0f0f0f;
-    color: #fff;
-}
-
-/* HERO SECTION */
-.hero {
-    height:80vh;
-    background: url('barber.jpg') center center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    background: linear-gradient(135deg, #0f172a, #0a0f1f);
     color: white;
-position: relative;
-} 
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-shadow: 0 6px 20px rgba(0,0,0,0.7);
-}
-text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-.hero p {
-    font-size: 18px;
-    margin: 15px 0;
-}
-
-.btn-gold {
-    padding: 12px 25px;
-    background: #d4af37;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 30px;
-    transition: 0.3s ease;
-}
-
-.btn-gold:hover {
-    background: white;
-    color: black;
-}
-
-.services, .gallery, .booking {
-  padding: 80px 10%;
-  text-align: center;
-}
-
-.services h2, .gallery h2, .booking h2 {
-  color: #ffcc00;
-  margin-bottom: 40px;
-}
-
-.service-grid, .gallery-grid {
-  display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.card {
-  background: #1a1a1a;
-  padding: 30px;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  background: #222;
-}
-
-.gallery-grid img {
-  width: 100%;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.gallery-grid img:hover {
-  transform: scale(1.05);
-}
-
-form {
-  display: grid;
-  gap: 15px;
-  max-width: 500px;
-  margin: auto;
-}
-
-input, button {
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-}
-
-button {
-    background: gold;
-    color: black;
-    border: none;
-    padding: 14px 32px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    background: white;
-    transform: translateY(-3px);
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  background: black;
-}
-nav {
-    position: fixed;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-}
-
-nav .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: gold;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-}
-
-nav ul li a:hover {
-    color: gold;
-}.hero {
-    padding-top: 120px;
-}
-html {
-    scroll-behavior: smooth;
-}
-.statement {
     text-align: center;
-    padding: 120px 20px;
-    background: #111;
+    line-height: 1.6;
 }
 
-.statement h2 {
-    font-family: 'Playfair Display', serif;
+/* Header */
+header {
+    padding: 60px 20px;
+}
+
+header h1 {
     font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Hero */
+.hero {
+    padding: 40px 20px;
+}
+
+.hero-img {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
     margin-bottom: 20px;
 }
 
-.statement p {
-    font-size: 1.1rem;
-    color: #ccc;
+.hero .btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background: #00f5ff;
+    color: black;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: 0.3s;
 }
+
+.hero .btn:hover {
+    background: white;
+}
+
+/* Services Cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #111827;
+    padding: 25px;
+    width: 200px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+/* Contact */
+#contact p {
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    background: #0a0f1f;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Fade In Animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-img {
+        max-width: 90%;
+    }
+} 
