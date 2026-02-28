@@ -10,8 +10,8 @@
 <body>
 
 <!-- Header -->
-<header>
-    <img src="images/profile.jpg" alt="Feissal Dev" class="profile-pic">
+<header class="fade-in">
+    <img src="profile.png" alt="Feissal Dev" class="profile-pic">
     <h1>Feissal Dev</h1>
     <p>Frontend Developer | Building modern & responsive websites</p>
 </header>
@@ -19,52 +19,34 @@
 <!-- About Me -->
 <section id="about" class="fade-in">
     <h2>About Me</h2>
-    <p>I help businesses grow online by creating clean, fast, and responsive websites that attract customers and increase trust.</p>
-</div >
+    <p>
+        I help businesses grow online by creating clean, fast, and responsive 
+        websites that attract customers and increase trust.
+    </p>
 </section>
 
 <!-- Projects -->
 <section id="projects">
-    <h2 class="fade-in">Practice Projects</h2>
-<section class="projects">
-  <h2>My Projects</h2>
+    <h2 class="fade-in">My Projects</h2>
 
-  <div class="project-card">
-    <h3>Restaurant Website</h3>
-    <a href="restaurant/" target="_blank">View Demo</a>
-  </div>
-
-  <div class="project-card">
-    <h3>Barbershop Website</h3>
-    <a href="barbershop/" target="_blank">View Demo</a>
-  </div>
-
-  <div class="project-card">
-    <h3>Company Website</h3>
-    <a href="company-website/" target="_blank">View Demo</a>
-  </div>
-
-  <div class="project-card">
-    <h3>Game Project</h3>
-    <a href="game/" target="_blank">Play Game</a>
-  </div>
-</section>
     <div class="fade-in project-card">
-        <h3>Tech Company Landing Page</h3>
-        <p>Modern responsive website for a tech company.</p>
-        <a href="#" class="demo-btn bakery" target="_blank">Live Demo</a>
+        <h3>Restaurant Website</h3>
+        <a href="restaurant/" target="_blank">View Demo</a>
     </div>
 
     <div class="fade-in project-card">
-        <h3>Real Estate Business Website</h3>
-        <p>Clean website for showcasing properties and agents.</p>
-        <a href="#" class="demo-btn startup" target="_blank">Live Demo</a>
+        <h3>Barbershop Website</h3>
+        <a href="barbershop/" target="_blank">View Demo</a>
     </div>
 
     <div class="fade-in project-card">
-        <h3>Personal Brand Portfolio</h3>
-        <p>Portfolio website to display skills, projects, and contact.</p>
-        <a href="#" class="demo-btn blog" target="_blank">Live Demo</a>
+        <h3>Company Website</h3>
+        <a href="company-website/" target="_blank">View Demo</a>
+    </div>
+
+    <div class="fade-in project-card">
+        <h3>Interactive Game</h3>
+        <a href="game/" target="_blank">Play Game</a>
     </div>
 </section>
 
@@ -73,7 +55,6 @@
     <h2>Contact Me</h2>
     <p>Email: feissaldev@email.com</p>
     <p>Available for freelance projects.</p>
-</div>
 </section>
 
 <!-- Footer -->
@@ -90,11 +71,11 @@ const appearOptions = {
   rootMargin: "0px 0px -50px 0px"
 };
 
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('show');
-        appearOnScroll.unobserve(entry.target);
+        observer.unobserve(entry.target);
     });
 }, appearOptions);
 
