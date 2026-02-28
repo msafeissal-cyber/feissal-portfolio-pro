@@ -9,16 +9,27 @@
 <body>
 
 <h1>Click The Circle 🎯</h1>
-<p>Score: <span id="score">0</span></p>
+
+<div class="info">
+    <p>Time Left: <span id="time">30</span>s</p>
+    <p>Score: <span id="score">0</span></p>
+</div>
 
 <div class="game-area">
     <div id="circle"></div>
 </div>
 
+<button id="restartBtn" style="display:none;">Restart Game</button>
+
 <script>
 let score = 0;
+let timeLeft = 30;
+let gameActive = true;
+
 const circle = document.getElementById("circle");
 const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const restartBtn = document.getElementById("restartBtn");
 
 function moveCircle() {
     const x = Math.random() * 250;
@@ -28,12 +39,40 @@ function moveCircle() {
 }
 
 circle.addEventListener("click", () => {
+    if (!gameActive) return;
     score++;
     scoreDisplay.textContent = score;
     moveCircle();
 });
 
+function countdown() {
+    const timer = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            gameActive = false;
+            circle.style.display = "none";
+            restartBtn.style.display = "inline-block";
+        }
+    }, 1000);
+}
+
+restartBtn.addEventListener("click", () => {
+    score = 0;
+    timeLeft = 30;
+    gameActive = true;
+    scoreDisplay.textContent = score;
+    timeDisplay.textContent = timeLeft;
+    circle.style.display = "block";
+    restartBtn.style.display = "none";
+    moveCircle();
+    countdown();
+});
+
 moveCircle();
+countdown();
 </script>
 
 </body>
