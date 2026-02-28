@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blade & Style</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbershop Website | Feissal Dev</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <div class="logo">Elite Cuts</div>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
-<section class="hero">
-    <div>
-        <h1>ELITE CUTZ BARBERSHOP</h1>
-        <p>Precision. Style. Confidence.</p>
-        <a href="game/" class="btn-gold">Play Mini Game</a>
+
+<!-- Header -->
+<header class="fade-in">
+    <h1>Modern Barbershop</h1>
+    <p>Stylish & responsive barbershop website designed to attract clients</p>
+</header>
+
+<!-- Hero Section -->
+<section class="hero fade-in">
+    <img src="barbershop.jpg" alt="Barbershop Image" class="hero-img">
+    <p>Book your appointment online or explore our services</p>
+    <a href="#services" class="btn">View Services</a>
+</section>
+
+<!-- Services -->
+<section id="services" class="fade-in">
+    <h2>Our Services</h2>
+    <div class="cards">
+        <div class="card">Haircuts</div>
+        <div class="card">Beard Styling</div>
+        <div class="card">Shaves</div>
+        <div class="card">Kids Haircuts</div>
     </div>
 </section>
-<section class="statement">
-    <h2>Crafting Confidence Since 2015</h2>
-    <p>Precision cuts. Timeless style. A modern gentleman's experience.</p>
-</section>
-<section class="services">
-  <h2>Our Services</h2>
-  <div class="service-grid">
-    <div class="card"><h3>Haircuts</h3><p>Classic & modern styles.</p></div>
-    <div class="card"><h3>Shaves</h3><p>Luxury straight-razor shaves.</p></div>
-    <div class="card"><h3>Beard Styling</h3><p>Sharp, clean, professional.</p></div>
-  </div>
+
+<!-- Contact / Booking -->
+<section id="contact" class="fade-in">
+    <h2>Book an Appointment</h2>
+    <p>Email: contact@modernbarbershop.com</p>
+    <p>Phone: +228 90 123 4567</p>
 </section>
 
-<section class="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery-grid">
-    <img src="https://images.unsplash.com/photo-1606755962777-4b4649d96391" alt="">
-    <img src="https://images.unsplash.com/photo-1598504894904-25d58d21e3f5" alt="">
-    <img src="https://images.unsplash.com/photo-1614991928288-df66e0a21db7" alt="">
-  </div>
-</section>
-<div class="project-card">
-  <a href="game/index.html" target="_blank">
-    <img src="https://images.unsplash.com/photo-1581090700227-1f0f28c9a5e0" alt="">
-    <h3>Interactive Mini-Game</h3>
-  </a>
-</div>
-<section id="booking" class="booking">
-  <h2>Book Your Appointment</h2>
-  <form>
-    <input type="text" placeholder="Full Name" required>
-    <input type="email" placeholder="Email Address" required>
-    <input type="date" required>
-    <input type="time" required>
-    <button type="submit">Book Now</button>
-  </form>
-</section>
-
-<footer>
-  <p>© 2026 Blade & Style | Designed by Feissal</p>
+<!-- Footer -->
+<footer class="fade-in">
+    <p>© 2026 Modern Barbershop – All Rights Reserved.</p>
 </footer>
 
+<!-- Fade-in animation script -->
+<script>
+const faders = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+  threshold: 0.2,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+    });
+}, appearOptions);
+
+faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+});
+</script>
+
 </body>
-</html>
-<a href="game/index.html">Play Mini Game</a>
+</html> 
