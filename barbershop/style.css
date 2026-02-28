@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #0a0f1f);
-    color: white;
+    background: #000000;
+    color: #FFD700; /* Yellow */
     text-align: center;
     line-height: 1.6;
 }
@@ -27,22 +27,62 @@ header p {
     opacity: 0.8;
 }
 
-/* Hero */
+/* Hero Section */
 .hero {
+    position: relative;
     padding: 40px 20px;
+    overflow: hidden;
 }
 
 .hero-img {
-    width: 90%;
-    max-width: 600px;
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
     border-radius: 15px;
-    margin-bottom: 20px;
+    transform: scale(1);
+    transition: transform 20s ease-in-out;
 }
 
-.hero .btn {
+/* Slow zoom animation */
+.hero-img:hover {
+    transform: scale(1.05);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: #FFD700;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.hero-text .btn {
     display: inline-block;
     padding: 10px 25px;
-    background: #00f5ff;
+    background: #FFD700;
     color: black;
     text-decoration: none;
     border-radius: 25px;
@@ -50,8 +90,8 @@ header p {
     transition: 0.3s;
 }
 
-.hero .btn:hover {
-    background: white;
+.hero-text .btn:hover {
+    background: #e6c200;
 }
 
 /* Services Cards */
@@ -69,18 +109,62 @@ header p {
     width: 200px;
     border-radius: 15px;
     transition: 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-    box-shadow: 0 0 10px rgba(0, 245, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
     cursor: pointer;
 }
 
 .cards .card:hover {
     transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 245, 255, 0.6);
-} 
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
 
-/* Contact */
-#contact p {
-    margin-bottom: 10px;
+/* Booking Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+}
+
+form input,
+form select,
+form button {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+form input,
+form select {
+    background: #1f2937;
+    color: #FFD700;
+}
+
+form input::placeholder {
+    color: #FFD700;
+    opacity: 0.6;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    outline: none;
+}
+
+form button {
+    background: #FFD700;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #e6c200;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
 }
 
 /* Footer */
@@ -91,129 +175,7 @@ footer {
     opacity: 0.8;
 }
 
-/* Fade In Animation */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease;
-}
-
-.fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .cards {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-img {
-        max-width: 90%;
-    }
-} 
-/
-}
-/* Hero Overlay and Text */
-.hero {
-    position: relative;
-    padding: 40px 20px;
-    overflow: hidden;
-}
-
-.hero-img {
-    width: 100%;
-    max-height: 450px;
-    object-fit: cover;
-    border-radius: 15px;
-    transform: scale(1);
-    transition: transform 20s ease-in-out;
-}
-
-/* Slow zoom animation */
-.hero-img:hover 
-
-    transform: scale(1.05);
-}
-/* Booking Form Hover Effects */
-form input,
-form select {
-    background: #1f2937;
-    color: white;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-
-form input:focus,
-form select:focus {
-    border-color: #00f5ff;
-    outline: none;
-    box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
-}
-
-form button {
-    background: #00f5ff;
-    color: black;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-form button:hover {
-    background: white;
-    color: #0a0f1f;
-    box-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom right, rgba(15,23,42,0.6), rgba(10,15,31,0.6));
-    border-radius: 15px;
-    z-index: 1;
-}
-
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    color: white;
-}
-
-.hero-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.hero-text p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    opacity: 0.9;
-}
-
-.hero-text .btn {
-    display: inline-block;
-    padding: 10px 25px;
-    background: #00f5ff;
-    color: black;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.hero-text .btn:hover {
-    background: white;
-    }
-/* Enhanced fade-in */
+/* Fade In Animations */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
@@ -231,6 +193,15 @@ form button:hover {
 .cards .card:nth-child(3) { transition-delay: 0.3s; }
 .cards .card:nth-child(4) { transition-delay: 0.4s; }
 
-/* Hero and Booking */
-.hero { transition-delay: 0.2s; }
-#contact { transition-delay: 0.3s; }
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-img {
+        max-width: 90%;
+    }
+}
+        
