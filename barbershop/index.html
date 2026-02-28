@@ -22,16 +22,34 @@
     <a href="#services" class="btn">View Services</a>
 </section>
 
-<!-- Services -->
-<section id="services" class="fade-in">
-    <h2>Our Services</h2>
-    <div class="cards">
-        <div class="card">Haircuts</div>
-        <div class="card">Beard Styling</div>
-        <div class="card">Shaves</div>
-        <div class="card">Kids Haircuts</div>
-    </div>
+<!-- Contact / Booking -->
+<section id="contact" class="fade-in">
+    <h2>Book an Appointment</h2>
+    <form id="bookingForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <select name="service" required>
+            <option value="">Select Service</option>
+            <option value="haircut">Haircut</option>
+            <option value="beard">Beard Styling</option>
+            <option value="shave">Shave</option>
+            <option value="kids">Kids Haircut</option>
+        </select>
+        <input type="date" name="date" required>
+        <button type="submit">Book Now</button>
+    </form>
 </section>
+
+<script>
+const bookingForm = document.getElementById("bookingForm");
+
+bookingForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // prevent page refresh
+    alert("Thank you! Your appointment request has been received.");
+    bookingForm.reset();
+});
+</script> 
 
 <!-- Contact / Booking -->
 <section id="contact" class="fade-in">
