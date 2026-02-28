@@ -114,44 +114,7 @@ footer {
         max-width: 90%;
     }
 } 
-/* Booking Form */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-form input,
-form select,
-form button {
-    padding: 12px 15px;
-    border-radius: 8px;
-    border: none;
-    font-size: 1rem;
-}
-
-form input,
-form select {
-    background: #1f2937;
-    color: white;
-}
-
-form input::placeholder {
-    color: #9ca3af;
-}
-
-form button {
-    background: #00f5ff;
-    color: black;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-form button:hover {
-    background: white;
+/
 }
 /* Hero Overlay and Text */
 .hero {
@@ -170,8 +133,39 @@ form button:hover {
 }
 
 /* Slow zoom animation */
-.hero-img:hover {
+.hero-img:hover 
+
     transform: scale(1.05);
+}
+/* Booking Form Hover Effects */
+form input,
+form select {
+    background: #1f2937;
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #00f5ff;
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+}
+
+form button {
+    background: #00f5ff;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: white;
+    color: #0a0f1f;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
 }
 
 .hero-overlay {
