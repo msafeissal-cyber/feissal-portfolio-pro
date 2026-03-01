@@ -271,3 +271,31 @@ footer {
     background: white;
     color: black;
 }
+/* Popup preview */
+.card {
+    position: relative; /* make popup absolute inside card */
+}
+
+.popup {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(245, 197, 24, 0.95);
+    color: black;
+    padding: 10px 15px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    width: 220px;
+    text-align: center;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.card:hover .popup {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+    pointer-events: auto;
+}
