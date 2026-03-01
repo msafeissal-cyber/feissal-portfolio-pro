@@ -1,67 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAFARA | Modern Afro Fashion</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAFARA | Afro-Minimalist Unisex Fashion</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
-    <div class="logo">ZAFARA</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#products">Shop</a>
-        <a href="#cart">Cart</a>
-    </nav>
+<!-- Header -->
+<header class="fade-in">
+    <h1>ZAFARA</h1>
+    <p>Modern Afro-Minimalist Unisex Fashion</p>
 </header>
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>Redefining Afro-Minimalist Fashion</h1>
-        <p>Bold designs. Clean silhouettes. Modern energy.</p>
-        <a href="#products" class="btn">Explore Collection</a>
+<!-- Hero Section -->
+<section class="hero fade-in">
+    <div class="hero-text">
+        <h1>Discover Premium Unisex Fashion</h1>
+        <p>Shop modern Afro-minimalist designs</p>
+        <a href="#products" class="btn">Explore Products</a>
     </div>
 </section>
 
-<section id="products">
-    <h2>Featured Collection</h2>
-
+<!-- Products -->
+<section id="products" class="fade-in">
+    <h2>Our Products</h2>
     <div class="product-grid">
-
-        <div class="card">
-            <div class="card-img"></div>
+        <div class="product-card" data-name="Ankara Shirt" data-price="45">
+            <div class="product-img"></div>
             <h3>Ankara Shirt</h3>
             <p>$45</p>
-            <button class="cart-btn">Add to Cart</button>
+            <button class="add-cart">Add to Cart</button>
         </div>
-
-        <div class="card">
-            <div class="card-img"></div>
+        <div class="product-card" data-name="Minimalist Dress" data-price="55">
+            <div class="product-img"></div>
             <h3>Minimalist Dress</h3>
             <p>$55</p>
-            <button class="cart-btn">Add to Cart</button>
+            <button class="add-cart">Add to Cart</button>
         </div>
-
-        <div class="card">
-            <div class="card-img"></div>
+        <div class="product-card" data-name="Afro Hoodie" data-price="60">
+            <div class="product-img"></div>
             <h3>Afro Hoodie</h3>
             <p>$60</p>
-            <button class="cart-btn">Add to Cart</button>
+            <button class="add-cart">Add to Cart</button>
         </div>
-
+        <div class="product-card" data-name="Unisex Pants" data-price="50">
+            <div class="product-img"></div>
+            <h3>Unisex Pants</h3>
+            <p>$50</p>
+            <button class="add-cart">Add to Cart</button>
+        </div>
     </div>
 </section>
 
-<section id="cart">
-    <h2>Your Cart (<span id="count">0</span>)</h2>
+<!-- Cart -->
+<section id="cart" class="fade-in">
+    <h2>Your Cart <span id="cart-count">(0)</span></h2>
+    <div id="cart-items"></div>
+    <p id="total-price">Total: $0</p>
+    <button id="checkout">Checkout</button>
 </section>
 
-<footer>
-    <p>© 2026 ZAFARA. Built by Feissal Dev.</p>
+<!-- Footer -->
+<footer class="fade-in">
+    <p>© 2026 ZAFARA – All Rights Reserved.</p>
 </footer>
 
 <script src="script.js"></script>
