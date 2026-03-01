@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZAFARA | Afro-Minimalist Fashion</title>
+<title>ZAFARA | Modern Afro Fashion</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
 <header>
-    <h1>ZAFARA</h1>
-    <p>Modern Afro-Minimalist Unisex Fashion</p>
+    <div class="logo">ZAFARA</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#products">Shop</a>
+        <a href="#cart">Cart</a>
+    </nav>
 </header>
 
 <section class="hero">
-    <h2>Discover Premium Fashion</h2>
-    <p>Bold. Minimal. African Inspired.</p>
-    <a href="#products" class="btn">Shop Now</a>
+    <div class="hero-content">
+        <h1>Redefining Afro-Minimalist Fashion</h1>
+        <p>Bold designs. Clean silhouettes. Modern energy.</p>
+        <a href="#products" class="btn">Explore Collection</a>
+    </div>
 </section>
 
 <section id="products">
@@ -28,18 +33,21 @@
     <div class="product-grid">
 
         <div class="card">
+            <div class="card-img"></div>
             <h3>Ankara Shirt</h3>
             <p>$45</p>
             <button class="cart-btn">Add to Cart</button>
         </div>
 
         <div class="card">
+            <div class="card-img"></div>
             <h3>Minimalist Dress</h3>
             <p>$55</p>
             <button class="cart-btn">Add to Cart</button>
         </div>
 
         <div class="card">
+            <div class="card-img"></div>
             <h3>Afro Hoodie</h3>
             <p>$60</p>
             <button class="cart-btn">Add to Cart</button>
@@ -48,12 +56,12 @@
     </div>
 </section>
 
-<section class="cart">
-    <h2>Cart (<span id="count">0</span>)</h2>
+<section id="cart">
+    <h2>Your Cart (<span id="count">0</span>)</h2>
 </section>
 
 <footer>
-    <p>© 2026 ZAFARA. All Rights Reserved.</p>
+    <p>© 2026 ZAFARA. Built by Feissal Dev.</p>
 </footer>
 
 <script src="script.js"></script>
