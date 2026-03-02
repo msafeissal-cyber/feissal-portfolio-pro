@@ -1,40 +1,35 @@
-const box = document.getElementById("box");
+const box = document.getElementById("colorBox");
 const message = document.getElementById("message");
-const result = document.getElementById("result");
-const restart = document.getElementById("restart");
+const button = document.getElementById("restartBtn");
 
 let startTime;
 let timeout;
-let ready = false;
 
 function startGame() {
+    box.style.backgroundColor = "red";
     message.textContent = "Wait for green...";
-    result.textContent = "";
-    box.style.background = "red";
-    ready = false;
+    box.style.pointerEvents = "none";
 
-    const randomTime = Math.random() * 3000 + 2000;
+    const randomTime = Math.floor(Math.random() * 3000) + 2000;
 
     timeout = setTimeout(() => {
-        box.style.background = "green";
+        box.style.backgroundColor = "green";
         message.textContent = "CLICK NOW!";
         startTime = Date.now();
-        ready = true;
+        box.style.pointerEvents = "auto";
     }, randomTime);
 }
 
 box.addEventListener("click", () => {
-    if (!ready) {
+    if (box.style.backgroundColor === "green") {
+        const reactionTime = Date.now() - startTime;
+        message.textContent = `Your reaction time: ${reactionTime} ms`;
+    } else {
         clearTimeout(timeout);
         message.textContent = "Too soon! Wait for green.";
-        box.style.background = "red";
-    } else {
-        const reactionTime = Date.now() - startTime;
-        result.textContent = `Your reaction time: ${reactionTime} ms`;
-        ready = false;
     }
 });
 
-restart.addEventListener("click", startGame);
+button.addEventListener("click", startGame);
 
 startGame();
