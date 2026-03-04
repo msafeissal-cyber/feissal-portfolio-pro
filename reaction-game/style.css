@@ -14,12 +14,7 @@ align-items:center;
 height:100vh;
 text-align:center;
 }
-body{
-    background: #0f0f0f;
-    font-family: Arial, sans-serif;
-    color: white;
-    text-align: center;
-}
+
 .container{
 background:#181818;
 padding:40px;
