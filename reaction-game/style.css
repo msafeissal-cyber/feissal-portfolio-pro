@@ -32,7 +32,7 @@ margin-bottom:20px;
 opacity:0.8;
 }
 
-#box{
+#colorBox{
 width:200px;
 height:200px;
 margin:20px auto;
@@ -40,7 +40,7 @@ background:red;
 border-radius:10px;
 cursor:pointer;
 transition:background 0.3s;
-}
+} 
 
 #result{
 margin-top:15px;
