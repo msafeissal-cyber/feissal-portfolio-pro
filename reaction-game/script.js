@@ -1,35 +1,70 @@
-const box = document.getElementById("colorBox");
-const message = document.getElementById("message");
-const button = document.getElementById("restartBtn");
+const target = document.getElementById("target");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const startBtn = document.getElementById("startBtn");
+const gameArea = document.getElementById("gameArea");
 
-let startTime;
-let timeout;
+let score = 0;
+let timeLeft = 15;
+let moveSpeed = 800;
+let gameInterval;
+let timerInterval;
 
-function startGame() {
-    box.style.backgroundColor = "red";
-    message.textContent = "Wait for green...";
-    box.style.pointerEvents = "none";
+function moveTarget() {
+    const maxX = gameArea.clientWidth - target.clientWidth;
+    const maxY = gameArea.clientHeight - target.clientHeight;
 
-    const randomTime = Math.floor(Math.random() * 3000) + 2000;
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
-    timeout = setTimeout(() => {
-        box.style.backgroundColor = "green";
-        message.textContent = "CLICK NOW!";
-        startTime = Date.now();
-        box.style.pointerEvents = "auto";
-    }, randomTime);
+    target.style.left = randomX + "px";
+    target.style.top = randomY + "px";
 }
 
-box.addEventListener("click", () => {
-    if (box.style.backgroundColor === "green") {
-        const reactionTime = Date.now() - startTime;
-        message.textContent = `Your reaction time: ${reactionTime} ms`;
-    } else {
-        clearTimeout(timeout);
-        message.textContent = "Too soon! Wait for green.";
-    }
+function startGame() {
+    score = 0;
+    timeLeft = 15;
+    moveSpeed = 800;
+
+    scoreDisplay.textContent = score;
+    timeDisplay.textContent = timeLeft;
+
+    target.style.display = "block";
+    startBtn.style.display = "none";
+
+    moveTarget();
+
+    gameInterval = setInterval(() => {
+        moveTarget();
+        if (moveSpeed > 300) {
+            moveSpeed -= 20; // gets faster over time
+            clearInterval(gameInterval);
+            gameInterval = setInterval(moveTarget, moveSpeed);
+        }
+    }, moveSpeed);
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            endGame();
+        }
+    }, 1000);
+}
+
+function endGame() {
+    clearInterval(gameInterval);
+    clearInterval(timerInterval);
+    target.style.display = "none";
+    startBtn.style.display = "inline-block";
+    startBtn.textContent = "Play Again";
+}
+
+target.addEventListener("click", () => {
+    score++;
+    scoreDisplay.textContent = score;
+    moveTarget();
 });
 
-button.addEventListener("click", startGame);
-
-startGame();
+startBtn.addEventListener("click", startGame); 
