@@ -21,27 +21,27 @@ function moveTarget() {
     target.style.top = randomY + "px";
 }
 
+// Start moving the target with decreasing speed safely
+function startMoving() {
+    moveTarget();
+    gameInterval = setTimeout(() => {
+        // Increase speed slightly
+        if (moveSpeed > 300) moveSpeed -= 20;
+        startMoving();
+    }, moveSpeed);
+}
+
 function startGame() {
     score = 0;
     timeLeft = 15;
     moveSpeed = 800;
-
     scoreDisplay.textContent = score;
     timeDisplay.textContent = timeLeft;
 
     target.style.display = "block";
     startBtn.style.display = "none";
 
-    moveTarget();
-
-    gameInterval = setInterval(() => {
-        moveTarget();
-        if (moveSpeed > 300) {
-            moveSpeed -= 20; // gets faster over time
-            clearInterval(gameInterval);
-            gameInterval = setInterval(moveTarget, moveSpeed);
-        }
-    }, moveSpeed);
+    startMoving(); // start movement
 
     timerInterval = setInterval(() => {
         timeLeft--;
@@ -54,7 +54,7 @@ function startGame() {
 }
 
 function endGame() {
-    clearInterval(gameInterval);
+    clearTimeout(gameInterval);
     clearInterval(timerInterval);
     target.style.display = "none";
     startBtn.style.display = "inline-block";
