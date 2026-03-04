@@ -67,4 +67,4 @@ target.addEventListener("click", () => {
     moveTarget();
 });
 
-startBtn.addEventListener("click", startGame); 
+startBtn.addEventListener("click", startGame);
