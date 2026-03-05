@@ -3,11 +3,29 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
+// Use image URLs for cards
+const cardImages = [
+    "https://img.icons8.com/color/48/000000/apple.png",
+    "https://img.icons8.com/color/48/000000/banana.png",
+    "https://img.icons8.com/color/48/000000/grapes.png",
+    "https://img.icons8.com/color/48/000000/watermelon.png",
+    "https://img.icons8.com/color/48/000000/orange.png",
+    "https://img.icons8.com/color/48/000000/strawberry.png"
+];
+
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
 
     this.classList.add('flipped');
+
+    // Show image when flipped
+    const img = document.createElement('img');
+    img.src = this.dataset.img;
+    img.style.width = "50px";
+    img.style.height = "50px";
+    this.innerHTML = "";
+    this.appendChild(img);
 
     if (!hasFlippedCard) {
         hasFlippedCard = true;
@@ -20,23 +38,18 @@ function flipCard() {
 }
 
 function checkForMatch() {
-    let isMatch = firstCard.dataset.name === secondCard.dataset.name;
-    isMatch ? disableCards() : unflipCards();
-}
-
-function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
-    resetBoard();
-}
-
-function unflipCards() {
-    lockBoard = true;
-    setTimeout(() => {
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
+    if (firstCard.dataset.name === secondCard.dataset.name) {
         resetBoard();
-    }, 1000);
+    } else {
+        lockBoard = true;
+        setTimeout(() => {
+            firstCard.classList.remove('flipped');
+            secondCard.classList.remove('flipped');
+            firstCard.innerHTML = "";
+            secondCard.innerHTML = "";
+            resetBoard();
+        }, 1000);
+    }
 }
 
 function resetBoard() {
@@ -44,12 +57,13 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-// Shuffle cards
-(function shuffle() {
-    cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * cards.length);
-        card.style.order = randomPos;
-    });
-})();
+// Assign images to cards
+const cardDivs = Array.from(cards);
+let pairedImages = [...cardImages, ...cardImages]; // duplicate for pairs
+pairedImages = pairedImages.sort(() => 0.5 - Math.random());
 
-cards.forEach(card => card.addEventListener('click', flipCard)); 
+cardDivs.forEach((card, index) => {
+    card.dataset.name = index % cardImages.length; // match pairs
+    card.dataset.img = pairedImages[index];
+    card.addEventListener('click', flipCard);
+}); 
