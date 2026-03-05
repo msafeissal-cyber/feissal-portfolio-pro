@@ -3,7 +3,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
-// Use image URLs for cards
+// Image URLs for the cards
 const cardImages = [
     "https://img.icons8.com/color/48/000000/apple.png",
     "https://img.icons8.com/color/48/000000/banana.png",
@@ -16,6 +16,7 @@ const cardImages = [
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
+    if (this.classList.contains('matched')) return; // ignore already matched cards
 
     this.classList.add('flipped');
 
@@ -39,6 +40,9 @@ function flipCard() {
 
 function checkForMatch() {
     if (firstCard.dataset.name === secondCard.dataset.name) {
+        // Mark cards as matched
+        firstCard.classList.add('matched');
+        secondCard.classList.add('matched');
         resetBoard();
     } else {
         lockBoard = true;
