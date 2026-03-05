@@ -3,20 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memory Card Game</title>
+<title>Memory Card Game | Feissal Dev</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<h1>🧠 Memory Card Game</h1>
-<p>Find the matching cards!</p>
+<header class="game-header">
+    <h1>Memory Card Game</h1>
+    <p>Created by Feissal Dev</p>
+</header>
 
-<div class="game-board" id="board"></div>
+<section class="game-container">
+    <div class="grid">
+        <!-- 12 cards, 6 pairs -->
+        <div class="card" data-name="1"></div>
+        <div class="card" data-name="1"></div>
+        <div class="card" data-name="2"></div>
+        <div class="card" data-name="2"></div>
+        <div class="card" data-name="3"></div>
+        <div class="card" data-name="3"></div>
+        <div class="card" data-name="4"></div>
+        <div class="card" data-name="4"></div>
+        <div class="card" data-name="5"></div>
+        <div class="card" data-name="5"></div>
+        <div class="card" data-name="6"></div>
+        <div class="card" data-name="6"></div>
+    </div>
+</section>
 
-<button id="restart">Restart Game</button>
+<footer class="game-footer">
+    <p>© 2026 Memory Card Game. Built by Feissal Dev.</p>
+</footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
