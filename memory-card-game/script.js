@@ -15,7 +15,7 @@ const finalMoves = document.getElementById('final-moves');
 const finalTime = document.getElementById('final-time');
 const restartBtn = document.getElementById('restart-btn');
 
-// Image URLs
+// Card images
 const cardImages = [
     "https://img.icons8.com/color/48/000000/apple.png",
     "https://img.icons8.com/color/48/000000/banana.png",
@@ -28,17 +28,13 @@ const cardImages = [
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
-    if (this.classList.contains('matched')) return;
+    if (this.classList.contains('matched')) return; // matched cards cannot flip
 
     this.classList.add('flipped');
 
-    // Show image
-    const img = document.createElement('img');
-    img.src = this.dataset.img;
-    img.style.width = "50px";
-    img.style.height = "50px";
-    this.innerHTML = "";
-    this.appendChild(img);
+    // Show image on the back
+    const back = this.querySelector('.card-back');
+    back.innerHTML = `<img src="${this.dataset.img}" style="width:50px;height:50px;">`;
 
     if (!hasFlippedCard) {
         hasFlippedCard = true;
@@ -50,7 +46,6 @@ function flipCard() {
     secondCard = this;
     checkForMatch();
 
-    // Increase moves
     moves++;
     movesCounter.textContent = moves;
 }
@@ -66,8 +61,6 @@ function checkForMatch() {
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
-            firstCard.innerHTML = "";
-            secondCard.innerHTML = "";
             resetBoard();
         }, 1000);
     }
@@ -80,7 +73,7 @@ function resetBoard() {
 
 // Shuffle cards
 const cardDivs = Array.from(cards);
-let pairedImages = [...cardImages, ...cardImages]; // duplicate for pairs
+let pairedImages = [...cardImages, ...cardImages];
 pairedImages = pairedImages.sort(() => 0.5 - Math.random());
 
 cardDivs.forEach((card, index) => {
@@ -91,14 +84,14 @@ cardDivs.forEach((card, index) => {
 
 // Timer
 function startTimer() {
-    if (timerInterval) return; // prevent multiple intervals
+    if (timerInterval) return;
     timerInterval = setInterval(() => {
         time++;
         timerDisplay.textContent = time;
     }, 1000);
 }
 
-// Check if all cards matched
+// Check win
 function checkWin() {
     const allMatched = [...cards].every(card => card.classList.contains('matched'));
     if (allMatched) {
@@ -106,15 +99,16 @@ function checkWin() {
         finalMoves.textContent = moves;
         finalTime.textContent = time;
         winMessage.classList.remove('hidden');
+        // Optional: play win sound
+        // new Audio('https://www.myinstants.com/media/sounds/tada.mp3').play();
     }
 }
 
-// Restart game
+// Restart
 restartBtn.addEventListener('click', () => {
-    // Reset all
     cards.forEach(card => {
         card.classList.remove('flipped', 'matched');
-        card.innerHTML = "";
+        card.querySelector('.card-back').innerHTML = "";
     });
     moves = 0;
     movesCounter.textContent = moves;
@@ -122,8 +116,6 @@ restartBtn.addEventListener('click', () => {
     timerDisplay.textContent = time;
     winMessage.classList.add('hidden');
     timerInterval = null;
-
-    // Shuffle again
     pairedImages = pairedImages.sort(() => 0.5 - Math.random());
     cardDivs.forEach((card, index) => {
         card.dataset.name = index % cardImages.length;
