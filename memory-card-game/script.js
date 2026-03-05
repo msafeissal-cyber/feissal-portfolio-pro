@@ -3,7 +3,19 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
-// Image URLs for the cards
+const movesCounter = document.getElementById('moves');
+let moves = 0;
+
+const timerDisplay = document.getElementById('timer');
+let time = 0;
+let timerInterval;
+
+const winMessage = document.getElementById('win-message');
+const finalMoves = document.getElementById('final-moves');
+const finalTime = document.getElementById('final-time');
+const restartBtn = document.getElementById('restart-btn');
+
+// Image URLs
 const cardImages = [
     "https://img.icons8.com/color/48/000000/apple.png",
     "https://img.icons8.com/color/48/000000/banana.png",
@@ -16,11 +28,11 @@ const cardImages = [
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
-    if (this.classList.contains('matched')) return; // ignore already matched cards
+    if (this.classList.contains('matched')) return;
 
     this.classList.add('flipped');
 
-    // Show image when flipped
+    // Show image
     const img = document.createElement('img');
     img.src = this.dataset.img;
     img.style.width = "50px";
@@ -31,19 +43,24 @@ function flipCard() {
     if (!hasFlippedCard) {
         hasFlippedCard = true;
         firstCard = this;
+        startTimer();
         return;
     }
 
     secondCard = this;
     checkForMatch();
+
+    // Increase moves
+    moves++;
+    movesCounter.textContent = moves;
 }
 
 function checkForMatch() {
     if (firstCard.dataset.name === secondCard.dataset.name) {
-        // Mark cards as matched
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
         resetBoard();
+        checkWin();
     } else {
         lockBoard = true;
         setTimeout(() => {
@@ -61,13 +78,55 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
-// Assign images to cards
+// Shuffle cards
 const cardDivs = Array.from(cards);
 let pairedImages = [...cardImages, ...cardImages]; // duplicate for pairs
 pairedImages = pairedImages.sort(() => 0.5 - Math.random());
 
 cardDivs.forEach((card, index) => {
-    card.dataset.name = index % cardImages.length; // match pairs
+    card.dataset.name = index % cardImages.length;
     card.dataset.img = pairedImages[index];
     card.addEventListener('click', flipCard);
+});
+
+// Timer
+function startTimer() {
+    if (timerInterval) return; // prevent multiple intervals
+    timerInterval = setInterval(() => {
+        time++;
+        timerDisplay.textContent = time;
+    }, 1000);
+}
+
+// Check if all cards matched
+function checkWin() {
+    const allMatched = [...cards].every(card => card.classList.contains('matched'));
+    if (allMatched) {
+        clearInterval(timerInterval);
+        finalMoves.textContent = moves;
+        finalTime.textContent = time;
+        winMessage.classList.remove('hidden');
+    }
+}
+
+// Restart game
+restartBtn.addEventListener('click', () => {
+    // Reset all
+    cards.forEach(card => {
+        card.classList.remove('flipped', 'matched');
+        card.innerHTML = "";
+    });
+    moves = 0;
+    movesCounter.textContent = moves;
+    time = 0;
+    timerDisplay.textContent = time;
+    winMessage.classList.add('hidden');
+    timerInterval = null;
+
+    // Shuffle again
+    pairedImages = pairedImages.sort(() => 0.5 - Math.random());
+    cardDivs.forEach((card, index) => {
+        card.dataset.name = index % cardImages.length;
+        card.dataset.img = pairedImages[index];
+    });
 }); 
