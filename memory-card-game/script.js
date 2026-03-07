@@ -24,210 +24,142 @@ const restartBtn = document.getElementById("restart-btn");
 const flipSound = new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
 const winSound = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
 
+// Shuffle cards function
+function shuffleCards(){
+    const cardArray = Array.from(cards);
+    cardArray.forEach(card => {
+        const randomPos = Math.floor(Math.random() * cardArray.length);
+        card.style.order = randomPos;
+    });
+}
+
+// Initialize the game
+cards.forEach(card => {
+    card.querySelector(".card-back").textContent = card.dataset.name;
+    card.addEventListener("click", flipCard);
+});
+
+// Shuffle cards at the start
+shuffleCards();
 
 loadBestScore();
 displayLeaderboard();
 
-cards.forEach(card => {
-
-card.querySelector(".card-back").textContent = card.dataset.name;
-card.addEventListener("click", flipCard);
-
-});
-
-
 function startTimer(){
-
-if(timerStarted) return;
-
-timerStarted = true;
-
-timer = setInterval(() => {
-
-time++;
-timerText.textContent = time;
-
-},1000);
-
+    if(timerStarted) return;
+    timerStarted = true;
+    timer = setInterval(()=>{
+        time++;
+        timerText.textContent = time;
+    }, 1000);
 }
-
 
 function flipCard(){
+    if(lockBoard) return;
+    if(this === firstCard) return;
+    if(this.classList.contains("matched")) return;
 
-if(lockBoard) return;
-if(this === firstCard) return;
-if(this.classList.contains("matched")) return;
+    startTimer();
+    flipSound.play();
+    this.classList.add("flipped");
 
-startTimer();
+    if(!firstCard){
+        firstCard = this;
+        return;
+    }
 
-flipSound.play();
+    secondCard = this;
+    moves++;
+    movesText.textContent = moves;
 
-this.classList.add("flipped");
-
-if(!firstCard){
-
-firstCard = this;
-return;
-
+    checkMatch();
 }
-
-secondCard = this;
-
-moves++;
-movesText.textContent = moves;
-
-checkMatch();
-
-}
-
 
 function checkMatch(){
-
-if(firstCard.dataset.name === secondCard.dataset.name){
-
-firstCard.classList.add("matched");
-secondCard.classList.add("matched");
-
-resetBoard();
-checkWin();
-
-}else{
-
-lockBoard = true;
-
-setTimeout(()=>{
-
-firstCard.classList.remove("flipped");
-secondCard.classList.remove("flipped");
-
-resetBoard();
-
-},800);
-
+    if(firstCard.dataset.name === secondCard.dataset.name){
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        resetBoard();
+        checkWin();
+    } else {
+        lockBoard = true;
+        setTimeout(()=>{
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            resetBoard();
+        }, 800);
+    }
 }
-
-}
-
 
 function resetBoard(){
-
-firstCard = null;
-secondCard = null;
-lockBoard = false;
-
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
 }
-
 
 function checkWin(){
-
-const matched = document.querySelectorAll(".matched");
-
-if(matched.length === cards.length){
-
-clearInterval(timer);
-
-winSound.play();
-
-finalMoves.textContent = moves;
-finalTime.textContent = time;
-
-saveBestScore();
-updateLeaderboard(moves);
-
-winMessage.classList.remove("hidden");
-
+    const matched = document.querySelectorAll(".matched");
+    if(matched.length === cards.length){
+        clearInterval(timer);
+        winSound.play();
+        finalMoves.textContent = moves;
+        finalTime.textContent = time;
+        saveBestScore();
+        updateLeaderboard(moves);
+        winMessage.classList.remove("hidden");
+    }
 }
-
-}
-
 
 restartBtn.addEventListener("click", resetGame);
 
-
 function resetGame(){
-
-clearInterval(timer);
-
-cards.forEach(card => {
-
-card.classList.remove("flipped","matched");
-
-});
-
-moves = 0;
-time = 0;
-timerStarted = false;
-
-movesText.textContent = 0;
-timerText.textContent = 0;
-
-winMessage.classList.add("hidden");
-
+    clearInterval(timer);
+    cards.forEach(card => {
+        card.classList.remove("flipped","matched");
+    });
+    moves = 0;
+    time = 0;
+    timerStarted = false;
+    movesText.textContent = 0;
+    timerText.textContent = 0;
+    winMessage.classList.add("hidden");
+    shuffleCards(); // shuffle again on restart
 }
 
-
+// Best score
 function saveBestScore(){
-
-let best = localStorage.getItem("memoryBest");
-
-if(!best || moves < best){
-
-localStorage.setItem("memoryBest", moves);
-bestScoreText.textContent = moves;
-
+    let best = localStorage.getItem("memoryBest");
+    if(!best || moves < best){
+        localStorage.setItem("memoryBest", moves);
+        bestScoreText.textContent = moves;
+    }
 }
-
-}
-
 
 function loadBestScore(){
-
-let best = localStorage.getItem("memoryBest");
-
-if(best){
-
-bestScoreText.textContent = best;
-
+    let best = localStorage.getItem("memoryBest");
+    if(best){
+        bestScoreText.textContent = best;
+    }
 }
 
-}
-
-
+// Leaderboard
 function updateLeaderboard(score){
-
-let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
-
-scores.push(score);
-
-scores.sort((a,b)=>a-b);
-
-scores = scores.slice(0,5);
-
-localStorage.setItem("memoryLeaderboard", JSON.stringify(scores));
-
-displayLeaderboard();
-
+    let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+    scores.push(score);
+    scores.sort((a,b)=>a-b);
+    scores = scores.slice(0,5);
+    localStorage.setItem("memoryLeaderboard", JSON.stringify(scores));
+    displayLeaderboard();
 }
-
 
 function displayLeaderboard(){
-
-let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
-
-const list = document.getElementById("leaderboard-list");
-
-if(!list) return;
-
-list.innerHTML = "";
-
-scores.forEach(score => {
-
-let li = document.createElement("li");
-
-li.textContent = score + " moves";
-
-list.appendChild(li);
-
-});
-
-} 
+    let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+    const list = document.getElementById("leaderboard-list");
+    if(!list) return;
+    list.innerHTML = "";
+    scores.forEach(score=>{
+        let li = document.createElement("li");
+        li.textContent = score + " moves";
+        list.appendChild(li);
+    });
+}
