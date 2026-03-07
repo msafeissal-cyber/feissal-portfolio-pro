@@ -15,26 +15,20 @@ const finalMoves = document.getElementById('final-moves');
 const finalTime = document.getElementById('final-time');
 const restartBtn = document.getElementById('restart-btn');
 
-// Card images
-const cardImages = [
-    "https://img.icons8.com/color/48/000000/apple.png",
-    "https://img.icons8.com/color/48/000000/banana.png",
-    "https://img.icons8.com/color/48/000000/grapes.png",
-    "https://img.icons8.com/color/48/000000/watermelon.png",
-    "https://img.icons8.com/color/48/000000/orange.png",
-    "https://img.icons8.com/color/48/000000/strawberry.png"
-];
+// Sounds
+const flipSound = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
+const winSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
 
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
-    if (this.classList.contains('matched')) return; // matched cards cannot flip
+    if (this.classList.contains('matched')) return;
 
     this.classList.add('flipped');
+    flipSound.play();
 
-    // Show image on the back
     const back = this.querySelector('.card-back');
-    back.innerHTML = `<img src="${this.dataset.img}" style="width:50px;height:50px;">`;
+    back.textContent = this.dataset.name;
 
     if (!hasFlippedCard) {
         hasFlippedCard = true;
@@ -73,13 +67,8 @@ function resetBoard() {
 
 // Shuffle cards
 const cardDivs = Array.from(cards);
-let pairedImages = [...cardImages, ...cardImages];
-pairedImages = pairedImages.sort(() => 0.5 - Math.random());
-
-cardDivs.forEach((card, index) => {
-    card.dataset.name = index % cardImages.length;
-    card.dataset.img = pairedImages[index];
-    card.addEventListener('click', flipCard);
+cardDivs.sort(() => 0.5 - Math.random()).forEach(card => {
+    card.parentNode.appendChild(card);
 });
 
 // Timer
@@ -99,8 +88,7 @@ function checkWin() {
         finalMoves.textContent = moves;
         finalTime.textContent = time;
         winMessage.classList.remove('hidden');
-        // Optional: play win sound
-        // new Audio('https://www.myinstants.com/media/sounds/tada.mp3').play();
+        winSound.play();
     }
 }
 
@@ -108,7 +96,7 @@ function checkWin() {
 restartBtn.addEventListener('click', () => {
     cards.forEach(card => {
         card.classList.remove('flipped', 'matched');
-        card.querySelector('.card-back').innerHTML = "";
+        card.querySelector('.card-back').textContent = '';
     });
     moves = 0;
     movesCounter.textContent = moves;
@@ -116,9 +104,9 @@ restartBtn.addEventListener('click', () => {
     timerDisplay.textContent = time;
     winMessage.classList.add('hidden');
     timerInterval = null;
-    pairedImages = pairedImages.sort(() => 0.5 - Math.random());
-    cardDivs.forEach((card, index) => {
-        card.dataset.name = index % cardImages.length;
-        card.dataset.img = pairedImages[index];
+
+    // Shuffle again
+    cardDivs.sort(() => 0.5 - Math.random()).forEach(card => {
+        card.parentNode.appendChild(card);
     });
 }); 
