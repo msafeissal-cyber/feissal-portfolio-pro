@@ -166,7 +166,44 @@ bestScoreText.textContent=moves;
 }
 
 }
+function updateLeaderboard(score){
 
+let scores=JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+
+scores.push(score);
+
+scores.sort((a,b)=>a-b);
+
+scores=scores.slice(0,5);
+
+localStorage.setItem("memoryLeaderboard",JSON.stringify(scores));
+
+displayLeaderboard();
+
+}
+
+
+function displayLeaderboard(){
+
+let scores=JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+
+const list=document.getElementById("leaderboard-list");
+
+list.innerHTML="";
+
+scores.forEach(score=>{
+
+let li=document.createElement("li");
+
+li.textContent=score+" moves";
+
+list.appendChild(li);
+
+});
+
+}
+
+displayLeaderboard();
 
 function loadBestScore(){
 
