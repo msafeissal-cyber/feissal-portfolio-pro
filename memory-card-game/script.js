@@ -1,47 +1,52 @@
 const grid = document.querySelector(".grid");
 const cards = document.querySelectorAll(".card");
 
-let firstCard=null;
-let secondCard=null;
-let lockBoard=false;
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
 
-let moves=0;
-let time=0;
-let timerStarted=false;
+let moves = 0;
+let time = 0;
+let timerStarted = false;
 let timer;
 
-const movesText=document.getElementById("moves");
-const timerText=document.getElementById("timer");
-const bestScoreText=document.getElementById("best-score");
+const movesText = document.getElementById("moves");
+const timerText = document.getElementById("timer");
+const bestScoreText = document.getElementById("best-score");
 
-const difficulty=document.getElementById("difficulty");
+const difficulty = document.getElementById("difficulty");
 
-const winMessage=document.getElementById("win-message");
-const finalMoves=document.getElementById("final-moves");
-const finalTime=document.getElementById("final-time");
-const restartBtn=document.getElementById("restart-btn");
+const winMessage = document.getElementById("win-message");
+const finalMoves = document.getElementById("final-moves");
+const finalTime = document.getElementById("final-time");
+const restartBtn = document.getElementById("restart-btn");
 
-const flipSound=new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
-const winSound=new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
+const flipSound = new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
+const winSound = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
 
 
 loadBestScore();
+displayLeaderboard();
 
-cards.forEach(card=>{
-card.querySelector(".card-back").textContent=card.dataset.name;
-card.addEventListener("click",flipCard);
+cards.forEach(card => {
+
+card.querySelector(".card-back").textContent = card.dataset.name;
+card.addEventListener("click", flipCard);
+
 });
 
 
 function startTimer(){
 
-if(timerStarted)return;
+if(timerStarted) return;
 
-timerStarted=true;
+timerStarted = true;
 
-timer=setInterval(()=>{
+timer = setInterval(() => {
+
 time++;
-timerText.textContent=time;
+timerText.textContent = time;
+
 },1000);
 
 }
@@ -49,9 +54,9 @@ timerText.textContent=time;
 
 function flipCard(){
 
-if(lockBoard)return;
-if(this===firstCard)return;
-if(this.classList.contains("matched"))return;
+if(lockBoard) return;
+if(this === firstCard) return;
+if(this.classList.contains("matched")) return;
 
 startTimer();
 
@@ -60,14 +65,16 @@ flipSound.play();
 this.classList.add("flipped");
 
 if(!firstCard){
-firstCard=this;
+
+firstCard = this;
 return;
+
 }
 
-secondCard=this;
+secondCard = this;
 
 moves++;
-movesText.textContent=moves;
+movesText.textContent = moves;
 
 checkMatch();
 
@@ -76,7 +83,7 @@ checkMatch();
 
 function checkMatch(){
 
-if(firstCard.dataset.name===secondCard.dataset.name){
+if(firstCard.dataset.name === secondCard.dataset.name){
 
 firstCard.classList.add("matched");
 secondCard.classList.add("matched");
@@ -86,7 +93,7 @@ checkWin();
 
 }else{
 
-lockBoard=true;
+lockBoard = true;
 
 setTimeout(()=>{
 
@@ -104,27 +111,28 @@ resetBoard();
 
 function resetBoard(){
 
-firstCard=null;
-secondCard=null;
-lockBoard=false;
+firstCard = null;
+secondCard = null;
+lockBoard = false;
 
 }
 
 
 function checkWin(){
 
-const matched=document.querySelectorAll(".matched");
+const matched = document.querySelectorAll(".matched");
 
-if(matched.length===cards.length){
+if(matched.length === cards.length){
 
 clearInterval(timer);
 
 winSound.play();
 
-finalMoves.textContent=moves;
-finalTime.textContent=time;
+finalMoves.textContent = moves;
+finalTime.textContent = time;
 
 saveBestScore();
+updateLeaderboard(moves);
 
 winMessage.classList.remove("hidden");
 
@@ -133,21 +141,25 @@ winMessage.classList.remove("hidden");
 }
 
 
-restartBtn.addEventListener("click",resetGame);
+restartBtn.addEventListener("click", resetGame);
 
 
 function resetGame(){
 
-cards.forEach(card=>{
+clearInterval(timer);
+
+cards.forEach(card => {
+
 card.classList.remove("flipped","matched");
+
 });
 
-moves=0;
-time=0;
-timerStarted=false;
+moves = 0;
+time = 0;
+timerStarted = false;
 
-movesText.textContent=0;
-timerText.textContent=0;
+movesText.textContent = 0;
+timerText.textContent = 0;
 
 winMessage.classList.add("hidden");
 
@@ -156,27 +168,42 @@ winMessage.classList.add("hidden");
 
 function saveBestScore(){
 
-let best=localStorage.getItem("memoryBest");
+let best = localStorage.getItem("memoryBest");
 
-if(!best || moves<best){
+if(!best || moves < best){
 
-localStorage.setItem("memoryBest",moves);
-bestScoreText.textContent=moves;
+localStorage.setItem("memoryBest", moves);
+bestScoreText.textContent = moves;
+
+}
+
+}
+
+
+function loadBestScore(){
+
+let best = localStorage.getItem("memoryBest");
+
+if(best){
+
+bestScoreText.textContent = best;
 
 }
 
 }
+
+
 function updateLeaderboard(score){
 
-let scores=JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
 
 scores.push(score);
 
 scores.sort((a,b)=>a-b);
 
-scores=scores.slice(0,5);
+scores = scores.slice(0,5);
 
-localStorage.setItem("memoryLeaderboard",JSON.stringify(scores));
+localStorage.setItem("memoryLeaderboard", JSON.stringify(scores));
 
 displayLeaderboard();
 
@@ -185,32 +212,22 @@ displayLeaderboard();
 
 function displayLeaderboard(){
 
-let scores=JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
+let scores = JSON.parse(localStorage.getItem("memoryLeaderboard")) || [];
 
-const list=document.getElementById("leaderboard-list");
+const list = document.getElementById("leaderboard-list");
 
-list.innerHTML="";
+if(!list) return;
 
-scores.forEach(score=>{
+list.innerHTML = "";
 
-let li=document.createElement("li");
+scores.forEach(score => {
 
-li.textContent=score+" moves";
+let li = document.createElement("li");
+
+li.textContent = score + " moves";
 
 list.appendChild(li);
 
 });
-
-}
-
-displayLeaderboard();
-
-function loadBestScore(){
-
-let best=localStorage.getItem("memoryBest");
-
-if(best){
-bestScoreText.textContent=best;
-}
 
 } 
