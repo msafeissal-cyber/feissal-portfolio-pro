@@ -14,94 +14,92 @@ const timerText = document.getElementById("timer");
 const flipSound = new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
 const winSound = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
 
-function startTimer(){
-if(timerStarted) return;
+function startTimer() {
+  if (timerStarted) return;
 
-timerStarted = true;
+  timerStarted = true;
 
-setInterval(()=>{
-time++;
-timerText.textContent = time;
-},1000);
+  setInterval(() => {
+    time++;
+    timerText.textContent = time;
+  }, 1000);
 }
 
-function flipCard(){
+cards.forEach(card => {
 
-if(lockBoard) return;
-if(this === firstCard) return;
-if(this.classList.contains("matched")) return;
+  const back = card.querySelector(".card-back");
+  back.textContent = card.dataset.name;
 
-startTimer();
+  card.addEventListener("click", flipCard);
 
-flipSound.play();
-
-this.classList.add("flipped");
-
-const back = this.querySelector(".card-back");
-back.textContent = this.dataset.name;
-
-if(!firstCard){
-firstCard = this;
-return;
-}
-
-secondCard = this;
-
-moves++;
-movesText.textContent = moves;
-
-checkMatch();
-}
-
-function checkMatch(){
-
-if(firstCard.dataset.name === secondCard.dataset.name){
-
-firstCard.classList.add("matched");
-secondCard.classList.add("matched");
-
-resetBoard();
-checkWin();
-
-}else{
-
-lockBoard = true;
-
-setTimeout(()=>{
-
-firstCard.classList.remove("flipped");
-secondCard.classList.remove("flipped");
-
-resetBoard();
-
-},800);
-
-}
-
-}
-
-function resetBoard(){
-firstCard = null;
-secondCard = null;
-lockBoard = false;
-}
-
-function checkWin(){
-
-const matched = document.querySelectorAll(".matched");
-
-if(matched.length === cards.length){
-
-winSound.play();
-
-setTimeout(()=>{
-alert("🏆 Congratulations! You won!");
-},300);
-
-}
-
-}
-
-cards.forEach(card=>{
-card.addEventListener("click",flipCard);
 });
+
+function flipCard() {
+
+  if (lockBoard) return;
+  if (this === firstCard) return;
+  if (this.classList.contains("matched")) return;
+
+  startTimer();
+
+  flipSound.play();
+
+  this.classList.add("flipped");
+
+  if (!firstCard) {
+    firstCard = this;
+    return;
+  }
+
+  secondCard = this;
+
+  moves++;
+  movesText.textContent = moves;
+
+  checkMatch();
+}
+
+function checkMatch() {
+
+  if (firstCard.dataset.name === secondCard.dataset.name) {
+
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+
+    resetBoard();
+    checkWin();
+
+  } else {
+
+    lockBoard = true;
+
+    setTimeout(() => {
+
+      firstCard.classList.remove("flipped");
+      secondCard.classList.remove("flipped");
+
+      resetBoard();
+
+    }, 800);
+  }
+}
+
+function resetBoard() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+}
+
+function checkWin() {
+
+  const matched = document.querySelectorAll(".matched");
+
+  if (matched.length === cards.length) {
+
+    winSound.play();
+
+    setTimeout(() => {
+      alert("🏆 Congratulations! You won!");
+    }, 300);
+  }
+} 
