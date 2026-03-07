@@ -96,3 +96,35 @@ font-weight:bold;
 border-radius:6px;
 cursor:pointer;
 } 
+.leaderboard{
+margin-top:20px;
+background:#111;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.leaderboard h3{
+color:#FFD700;
+margin-bottom:10px;
+}
+
+.leaderboard li{
+margin:5px 0;
+}
+
+/* animated background */
+
+body{
+background:linear-gradient(-45deg,#0f0f0f,#1a1a1a,#111,#222);
+background-size:400% 400%;
+animation:bgmove 10s infinite;
+}
+
+@keyframes bgmove{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
