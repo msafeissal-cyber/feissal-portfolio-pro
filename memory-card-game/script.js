@@ -1,105 +1,179 @@
+const grid = document.querySelector(".grid");
 const cards = document.querySelectorAll(".card");
 
-let firstCard = null;
-let secondCard = null;
-let lockBoard = false;
+let firstCard=null;
+let secondCard=null;
+let lockBoard=false;
 
-let moves = 0;
-let time = 0;
-let timerStarted = false;
+let moves=0;
+let time=0;
+let timerStarted=false;
+let timer;
 
-const movesText = document.getElementById("moves");
-const timerText = document.getElementById("timer");
+const movesText=document.getElementById("moves");
+const timerText=document.getElementById("timer");
+const bestScoreText=document.getElementById("best-score");
 
-const flipSound = new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
-const winSound = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
+const difficulty=document.getElementById("difficulty");
 
-function startTimer() {
-  if (timerStarted) return;
+const winMessage=document.getElementById("win-message");
+const finalMoves=document.getElementById("final-moves");
+const finalTime=document.getElementById("final-time");
+const restartBtn=document.getElementById("restart-btn");
 
-  timerStarted = true;
+const flipSound=new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
+const winSound=new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
 
-  setInterval(() => {
-    time++;
-    timerText.textContent = time;
-  }, 1000);
-}
 
-cards.forEach(card => {
+loadBestScore();
 
-  const back = card.querySelector(".card-back");
-  back.textContent = card.dataset.name;
-
-  card.addEventListener("click", flipCard);
-
+cards.forEach(card=>{
+card.querySelector(".card-back").textContent=card.dataset.name;
+card.addEventListener("click",flipCard);
 });
 
-function flipCard() {
 
-  if (lockBoard) return;
-  if (this === firstCard) return;
-  if (this.classList.contains("matched")) return;
+function startTimer(){
 
-  startTimer();
+if(timerStarted)return;
 
-  flipSound.play();
+timerStarted=true;
 
-  this.classList.add("flipped");
+timer=setInterval(()=>{
+time++;
+timerText.textContent=time;
+},1000);
 
-  if (!firstCard) {
-    firstCard = this;
-    return;
-  }
-
-  secondCard = this;
-
-  moves++;
-  movesText.textContent = moves;
-
-  checkMatch();
 }
 
-function checkMatch() {
 
-  if (firstCard.dataset.name === secondCard.dataset.name) {
+function flipCard(){
 
-    firstCard.classList.add("matched");
-    secondCard.classList.add("matched");
+if(lockBoard)return;
+if(this===firstCard)return;
+if(this.classList.contains("matched"))return;
 
-    resetBoard();
-    checkWin();
+startTimer();
 
-  } else {
+flipSound.play();
 
-    lockBoard = true;
+this.classList.add("flipped");
 
-    setTimeout(() => {
-
-      firstCard.classList.remove("flipped");
-      secondCard.classList.remove("flipped");
-
-      resetBoard();
-
-    }, 800);
-  }
+if(!firstCard){
+firstCard=this;
+return;
 }
 
-function resetBoard() {
-  firstCard = null;
-  secondCard = null;
-  lockBoard = false;
+secondCard=this;
+
+moves++;
+movesText.textContent=moves;
+
+checkMatch();
+
 }
 
-function checkWin() {
 
-  const matched = document.querySelectorAll(".matched");
+function checkMatch(){
 
-  if (matched.length === cards.length) {
+if(firstCard.dataset.name===secondCard.dataset.name){
 
-    winSound.play();
+firstCard.classList.add("matched");
+secondCard.classList.add("matched");
 
-    setTimeout(() => {
-      alert("🏆 Congratulations! You won!");
-    }, 300);
-  }
+resetBoard();
+checkWin();
+
+}else{
+
+lockBoard=true;
+
+setTimeout(()=>{
+
+firstCard.classList.remove("flipped");
+secondCard.classList.remove("flipped");
+
+resetBoard();
+
+},800);
+
+}
+
+}
+
+
+function resetBoard(){
+
+firstCard=null;
+secondCard=null;
+lockBoard=false;
+
+}
+
+
+function checkWin(){
+
+const matched=document.querySelectorAll(".matched");
+
+if(matched.length===cards.length){
+
+clearInterval(timer);
+
+winSound.play();
+
+finalMoves.textContent=moves;
+finalTime.textContent=time;
+
+saveBestScore();
+
+winMessage.classList.remove("hidden");
+
+}
+
+}
+
+
+restartBtn.addEventListener("click",resetGame);
+
+
+function resetGame(){
+
+cards.forEach(card=>{
+card.classList.remove("flipped","matched");
+});
+
+moves=0;
+time=0;
+timerStarted=false;
+
+movesText.textContent=0;
+timerText.textContent=0;
+
+winMessage.classList.add("hidden");
+
+}
+
+
+function saveBestScore(){
+
+let best=localStorage.getItem("memoryBest");
+
+if(!best || moves<best){
+
+localStorage.setItem("memoryBest",moves);
+bestScoreText.textContent=moves;
+
+}
+
+}
+
+
+function loadBestScore(){
+
+let best=localStorage.getItem("memoryBest");
+
+if(best){
+bestScoreText.textContent=best;
+}
+
 } 
