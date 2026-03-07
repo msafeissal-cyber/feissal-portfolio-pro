@@ -1,103 +1,74 @@
-/* General */
 body {
     background: linear-gradient(135deg,#0f0f0f,#1c1c1c);
     color: white;
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+    padding: 20px;
     min-height: 100vh;
 }
 
-/* Header */
-.game-header {
+.game-header, .game-footer {
     text-align: center;
-    margin-top: 15px;
-}
-.game-header h1 {
-    color: #FFD700; /* yellow title */
-    font-size: 1.8rem;
-    margin-bottom: 5px;
-}
-.game-header p {
-    color: #ccc;
-    font-size: 0.9rem;
+    margin-bottom: 15px;
 }
 
-/* Game grid */
-.game-container {
-    flex: 1;
+/* Stats */
+.stats {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px;
+    justify-content: space-around;
+    width: 200px;
+    margin-bottom: 10px;
 }
+
+/* Grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 70px); /* smaller cards */
-    grid-gap: 10px;
+    grid-template-columns: repeat(4, 80px);
+    grid-gap: 15px;
 }
 
-/* Cards */
+/* Card Styles */
 .card {
-    width: 70px;
-    height: 70px;
-    perspective: 600px; /* needed for 3D flip */
+    width: 80px;
+    height: 80px;
+    perspective: 600px;
     cursor: pointer;
 }
 
 .card-inner {
-    position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.6s;
+    position: relative;
     transform-style: preserve-3d;
+    transition: transform 0.6s;
 }
 
 .card.flipped .card-inner {
     transform: rotateY(180deg);
 }
 
-/* Card faces */
 .card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
     border-radius: 10px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
 }
 
 .card-front {
     background-color: #FFD700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
 }
 
 .card-back {
     background-color: #1c1c1c;
     transform: rotateY(180deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} 
-
-/* Footer */
-.game-footer {
-    margin: 15px 0;
-    text-align: center;
-    font-size: 12px;
-    color: #ccc;
-        } 
-/* Stats display */
-.stats {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
-    font-size: 14px;
 }
 
 /* Win popup */
@@ -113,9 +84,7 @@ body {
     text-align: center;
     z-index: 1000;
 }
-#win-message.hidden {
-    display: none;
-}
+#win-message.hidden { display: none; }
 #win-message button {
     margin-top: 15px;
     padding: 8px 15px;
@@ -125,4 +94,4 @@ body {
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    }
+}
