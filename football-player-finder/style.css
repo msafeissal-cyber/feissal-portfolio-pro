@@ -259,3 +259,37 @@ margin-bottom:10px;
 .score-card p{
 font-size:14px;
   }
+.team-search{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
+
+.team-search input{
+padding:8px;
+border-radius:5px;
+border:none;
+}
+
+.team-search button{
+padding:8px 15px;
+background:#00ff99;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#teamResult{
+display:flex;
+justify-content:center;
+margin-top:30px;
+}
+
+.team-card{
+background:#1c1c1c;
+padding:20px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
