@@ -5,67 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Football Dashboard | Feissal Dev</title>
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
-    <h1>⚽ Football Dashboard</h1>
-    <p>Built by Feissal Dev</p>
-</header>
+<h1>⚽ Football Dashboard</h1>
 
-<section class="search-section">
-    <div class="search-box">
-        <input type="text" id="playerInput" placeholder="Search player...">
-        <button id="searchBtn">Search</button>
-    </div>
-</section>
+<!-- Player Search -->
+<div class="search-box">
+  <input type="text" id="playerInput" placeholder="Search player...">
+  <button id="searchBtn">Search</button>
+</div>
 
-<h2>⭐ Top Players</h2>
+<h2>⭐ Top Football Players</h2>
 <div class="top-players">
-    <div class="top-card" onclick="quickSearch('Lionel Messi')">
-        <img src="https://www.thesportsdb.com/images/media/player/thumb/xyhuxx1467337507.jpg">
-        <p>Lionel Messi</p>
-    </div>
-    <div class="top-card" onclick="quickSearch('Cristiano Ronaldo')">
-        <img src="https://www.thesportsdb.com/images/media/player/thumb/vwpvry1467462651.jpg">
-        <p>Cristiano Ronaldo</p>
-    </div>
-    <div class="top-card" onclick="quickSearch('Kylian Mbappe')">
-        <img src="https://www.thesportsdb.com/images/media/player/thumb/xzpppq1584984233.jpg">
-        <p>Kylian Mbappe</p>
-    </div>
-    <div class="top-card" onclick="quickSearch('Erling Haaland')">
-        <img src="https://www.thesportsdb.com/images/media/player/thumb/xyqrrx1584987600.jpg">
-        <p>Erling Haaland</p>
-    </div>
+  <div class="top-card" onclick="quickSearch('Lionel Messi')">
+    <img src="https://www.thesportsdb.com/images/media/player/thumb/xyhuxx1467337507.jpg">
+    <p>Lionel Messi</p>
+  </div>
+  <div class="top-card" onclick="quickSearch('Cristiano Ronaldo')">
+    <img src="https://www.thesportsdb.com/images/media/player/thumb/vwpvry1467462651.jpg">
+    <p>Cristiano Ronaldo</p>
+  </div>
+  <div class="top-card" onclick="quickSearch('Kylian Mbappe')">
+    <img src="https://www.thesportsdb.com/images/media/player/thumb/xzpppq1584984233.jpg">
+    <p>Kylian Mbappe</p>
+  </div>
+  <div class="top-card" onclick="quickSearch('Erling Haaland')">
+    <img src="https://www.thesportsdb.com/images/media/player/thumb/xyqrrx1584987600.jpg">
+    <p>Erling Haaland</p>
+  </div>
 </div>
 
 <div id="loading" class="hidden">Loading player...</div>
 <div id="playerCard"></div>
 
+<h2>🔥 Latest Football Matches</h2>
+<div id="matches" class="matches-container">Loading matches...</div>
+
+<h2>🏆 League Tables</h2>
+<div id="leagueTables" class="league-tables"><p>Loading league tables...</p></div>
+
 <h2>⚔️ Player Comparison</h2>
 <div class="compare-container">
-    <input type="text" id="player1" placeholder="First player">
-    <input type="text" id="player2" placeholder="Second player">
-    <button onclick="comparePlayers()">Compare</button>
+  <input type="text" id="player1" placeholder="Enter first player">
+  <input type="text" id="player2" placeholder="Enter second player">
+  <button onclick="comparePlayers()">Compare</button>
 </div>
 <div id="comparisonResult"></div>
 
-<h2>🏆 League Tables</h2>
-<div id="leagueTables">
-    <p>Loading league tables...</p>
-</div>
-
-<h2>🔥 Live Football Scores</h2>
-<div id="liveScores">
-    <p>Loading live scores...</p>
-</div>
+<h2>⚡ Live Football Scores</h2>
+<div id="liveScores" class="live-scores">Loading live matches...</div>
 
 <h2>🏟️ Search Football Teams</h2>
 <div class="team-search">
-    <input type="text" id="teamInput" placeholder="Enter team name">
-    <button onclick="searchTeam()">Search</button>
+  <input type="text" id="teamInput" placeholder="Enter team name">
+  <button onclick="searchTeam()">Search</button>
 </div>
 <div id="teamResult"></div>
 
