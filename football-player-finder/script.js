@@ -74,3 +74,43 @@ document.getElementById("playerInput").value=name;
 searchPlayer();
 
 }
+async function loadMatches(){
+
+const container=document.getElementById("matches");
+
+try{
+
+const response=await fetch("https://www.scorebat.com/video-api/v3/");
+const data=await response.json();
+
+container.innerHTML="";
+
+data.response.slice(0,6).forEach(match=>{
+
+container.innerHTML+=`
+
+<div class="match-card">
+
+<h3>${match.title}</h3>
+
+<iframe src="${match.matchviewUrl}" allowfullscreen></iframe>
+
+<p>${match.competition}</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+catch(error){
+
+container.innerHTML="Could not load matches";
+
+}
+
+}
+
+loadMatches();
