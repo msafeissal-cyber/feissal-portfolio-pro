@@ -57,7 +57,7 @@ async function loadLeagueTables(){
 
     for(const l of leagues){
       const res = await fetch(`https://api.football-data.org/v4/competitions/${l.code}/standings`, {
-        headers: {'X-Auth-Token':'YOUR_API_KEY_HERE'}
+        headers: {'X-Auth-Token'd1a331f14d2429d8108cec9dcdfbb87'}
       });
       const data = await res.json();
       const standings = data.standings[0].table.slice(0,10);
