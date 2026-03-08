@@ -120,7 +120,7 @@ container.innerHTML = "Loading league tables...";
 
 try{
 const response = await fetch("https://api.football-data.org/v4/competitions/PL/standings", {
-  headers: { 'X-Auth-Token': 'YOUR_API_KEY_HERE' }
+  headers: { 'X-Auth-Token': '0d1a331f14d2429d8108cec9dcdfbb87' }
 });
 const data = await response.json();
 
