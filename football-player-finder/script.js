@@ -114,3 +114,51 @@ container.innerHTML="Could not load matches";
 }
 
 loadMatches();
+async function loadLeagueTables(){
+const container = document.getElementById("leagueTables");
+container.innerHTML = "Loading league tables...";
+
+try{
+const response = await fetch("https://api.football-data.org/v4/competitions/PL/standings", {
+  headers: { 'X-Auth-Token': 'YOUR_API_KEY_HERE' }
+});
+const data = await response.json();
+
+container.innerHTML = "";
+
+const standings = data.standings[0].table.slice(0, 10); // top 10 teams
+
+let tableHTML = `
+<div class="table-card">
+<h3>Premier League</h3>
+<table>
+<tr>
+<th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th>
+</tr>
+`;
+
+standings.forEach(team=>{
+tableHTML += `
+<tr>
+<td>${team.position}</td>
+<td><img src="${team.team.crest}" style="width:20px;vertical-align:middle;margin-right:5px;">${team.team.name}</td>
+<td>${team.playedGames}</td>
+<td>${team.won}</td>
+<td>${team.draw}</td>
+<td>${team.lost}</td>
+<td>${team.points}</td>
+</tr>
+`;
+});
+
+tableHTML += "</table></div>";
+
+container.innerHTML = tableHTML;
+
+}catch(error){
+container.innerHTML = "<p>Could not load league tables (API key required)</p>";
+console.error(error);
+}
+}
+
+loadLeagueTables();
