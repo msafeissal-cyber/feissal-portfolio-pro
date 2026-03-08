@@ -1,286 +1,162 @@
+const playerInput = document.getElementById("playerInput");
 const searchBtn = document.getElementById("searchBtn");
-const input = document.getElementById("playerInput");
 const playerCard = document.getElementById("playerCard");
 const loading = document.getElementById("loading");
 
 searchBtn.addEventListener("click", searchPlayer);
+playerInput.addEventListener("keypress", e => { if(e.key==="Enter") searchPlayer(); });
 
-// search when pressing ENTER
-input.addEventListener("keypress", function(e){
-if(e.key === "Enter"){
-searchPlayer();
-}
-});
-
-async function loadLeague(leagueCode, leagueName){
-
-const container = document.getElementById("leagueTables");
-
-try{
-
-const response = await fetch(`https://api.football-data.org/v4/competitions/${leagueCode}/standings`,{
-
-headers:{
-'X-Auth-Token':'your_real_key_here' 
+async function quickSearch(playerName){
+    playerInput.value = playerName;
+    await searchPlayer();
 }
 
-});
+async function searchPlayer(){
+    const name = playerInput.value.trim();
+    if(!name) return;
 
-const data = await response.json();
+    playerCard.innerHTML="";
+    loading.classList.remove("hidden");
 
-const standings = data.standings[0].table.slice(0,10);
+    try{
+        const res = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${name}`);
+        const data = await res.json();
+        loading.classList.add("hidden");
 
-let tableHTML = `
-<div class="table-card">
+        if(!data.player) { playerCard.innerHTML="Player not found."; return; }
 
-<h3>${leagueName}</h3>
-
-<table>
-
-<tr>
-<th>#</th>
-<th>Team</th>
-<th>P</th>
-<th>Pts</th>
-</tr>
-`;
-
-standings.forEach(team=>{
-
-tableHTML += `
-
-<tr>
-
-<td>${team.position}</td>
-
-<td>
-<img src="${team.team.crest}" width="20">
-${team.team.name}
-</td>
-
-<td>${team.playedGames}</td>
-
-<td>${team.points}</td>
-
-</tr>
-
-`;
-
-});
-
-tableHTML += "</table></div>";
-
-container.innerHTML += tableHTML;
-
+        const p = data.player[0];
+        playerCard.innerHTML = `
+        <div class="player-card">
+            <img src="${p.strThumb}" alt="${p.strPlayer}">
+            <h2>${p.strPlayer}</h2>
+            <p>Team: ${p.strTeam}</p>
+            <p>Position: ${p.strPosition}</p>
+            <p>Nationality: ${p.strNationality}</p>
+        </div>`;
+    } catch(err){ console.error(err); loading.classList.add("hidden"); }
 }
 
-catch(error){
+// Player comparison
+async function comparePlayers(){
+    const p1=document.getElementById("player1").value.trim();
+    const p2=document.getElementById("player2").value.trim();
+    if(!p1 || !p2) return alert("Enter both players");
 
-console.log("Error loading league", error);
+    const result=document.getElementById("comparisonResult");
+    result.innerHTML="Loading...";
 
+    try{
+        const r1 = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p1}`);
+        const d1 = await r1.json();
+        const r2 = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p2}`);
+        const d2 = await r2.json();
+
+        if(!d1.player || !d2.player) { result.innerHTML="Players not found."; return; }
+
+        const player1=d1.player[0];
+        const player2=d2.player[0];
+
+        result.innerHTML=`
+        <div class="compare-card">
+            <img src="${player1.strThumb}" width="100">
+            <h3>${player1.strPlayer}</h3>
+            <p>Team: ${player1.strTeam}</p>
+            <p>Position: ${player1.strPosition}</p>
+            <p>Nationality: ${player1.strNationality}</p>
+        </div>
+        <div class="compare-card">
+            <img src="${player2.strThumb}" width="100">
+            <h3>${player2.strPlayer}</h3>
+            <p>Team: ${player2.strTeam}</p>
+            <p>Position: ${player2.strPosition}</p>
+            <p>Nationality: ${player2.strNationality}</p>
+        </div>`;
+    } catch(err){ console.error(err); result.innerHTML="Error loading players"; }
 }
 
-} 
-
-loadMatches();
+// League tables
 async function loadLeagueTables(){
-const container = document.getElementById("leagueTables");
-container.innerHTML = "Loading league tables...";
+    const container = document.getElementById("leagueTables");
+    container.innerHTML="Loading league tables...";
 
-try{
-const response = await fetch("https://api.football-data.org/v4/competitions/PL/standings", {
-  headers: { 'X-Auth-Token': '0d1a331f14d2429d8108cec9dcdfbb87' }
-});
-const data = await response.json();
+    const leagues = [
+        { code:"PL", name:"Premier League" },
+        { code:"PD", name:"La Liga" },
+        { code:"SA", name:"Serie A" },
+        { code:"CL", name:"Champions League" }
+    ];
 
-container.innerHTML = "";
+    container.innerHTML="";
 
-const standings = data.standings[0].table.slice(0, 10); // top 10 teams
+    for(const l of leagues){
+        try{
+            const res = await fetch(`https://api.football-data.org/v4/competitions/${l.code}/standings`, {
+                headers:{ 'X-Auth-Token':'YOUR_API_KEY_HERE' } // <-- Paste your API key here
+            });
+            const data = await res.json();
+            const standings = data.standings[0].table.slice(0,10);
 
-let tableHTML = `
-<div class="table-card">
-<h3>Premier League</h3>
-<table>
-<tr>
-<th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th>
-</tr>
-`;
+            let html = `<div class="table-card"><h3>${l.name}</h3><table><tr>
+            <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr>`;
 
-standings.forEach(team=>{
-tableHTML += `
-<tr>
-<td>${team.position}</td>
-<td><img src="${team.team.crest}" style="width:20px;vertical-align:middle;margin-right:5px;">${team.team.name}</td>
-<td>${team.playedGames}</td>
-<td>${team.won}</td>
-<td>${team.draw}</td>
-<td>${team.lost}</td>
-<td>${team.points}</td>
-</tr>
-`;
-});
+            standings.forEach(t=>{
+                html+=`<tr>
+                <td>${t.position}</td>
+                <td><img src="${t.team.crest}" style="width:20px;margin-right:5px;vertical-align:middle;">${t.team.name}</td>
+                <td>${t.playedGames}</td><td>${t.won}</td><td>${t.draw}</td><td>${t.lost}</td><td>${t.points}</td>
+                </tr>`;
+            });
 
-tableHTML += "</table></div>";
+            html+="</table></div>";
+            container.innerHTML += html;
 
-container.innerHTML = tableHTML;
-
-}catch(error){
-container.innerHTML = "<p>Could not load league tables (API key required)</p>";
-console.error(error);
-}
+        }catch(err){
+            console.error(err);
+            container.innerHTML += `<p>Could not load ${l.name}</p>`;
+        }
+    }
 }
 
 loadLeagueTables();
-document.getElementById("leagueTables").innerHTML="";
 
-loadLeague("PL","Premier League");
-
-loadLeague("PD","La Liga");
-
-loadLeague("SA","Serie A");
-
-loadLeague("CL","Champions League");
-async function comparePlayers(){
-
-const p1=document.getElementById("player1").value;
-const p2=document.getElementById("player2").value;
-
-const result=document.getElementById("comparisonResult");
-
-result.innerHTML="Loading...";
-
-try{
-
-const r1=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p1}`);
-const d1=await r1.json();
-
-const r2=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p2}`);
-const d2=await r2.json();
-
-const player1=d1.player[0];
-const player2=d2.player[0];
-
-result.innerHTML=`
-
-<div class="compare-card">
-
-<img src="${player1.strThumb}" width="100">
-
-<h3>${player1.strPlayer}</h3>
-
-<p>Team: ${player1.strTeam}</p>
-
-<p>Position: ${player1.strPosition}</p>
-
-<p>Nationality: ${player1.strNationality}</p>
-
-</div>
-
-<div class="compare-card">
-
-<img src="${player2.strThumb}" width="100">
-
-<h3>${player2.strPlayer}</h3>
-
-<p>Team: ${player2.strTeam}</p>
-
-<p>Position: ${player2.strPosition}</p>
-
-<p>Nationality: ${player2.strNationality}</p>
-
-</div>
-
-`;
-
-}
-
-catch(error){
-
-result.innerHTML="Players not found.";
-
-}
-
-           }
+// Live Scores
 async function loadLiveScores(){
-
-const container=document.getElementById("liveScores");
-
-try{
-
-const response=await fetch("https://www.scorebat.com/video-api/v3/");
-const data=await response.json();
-
-container.innerHTML="";
-
-data.response.slice(0,6).forEach(match=>{
-
-container.innerHTML+=`
-
-<div class="score-card">
-
-<h3>${match.title}</h3>
-
-<p>${match.competition}</p>
-
-<a href="${match.matchviewUrl}" target="_blank">Watch Highlight</a>
-
-</div>
-
-`;
-
-});
-
+    const container = document.getElementById("liveScores");
+    container.innerHTML="Loading live scores...";
+    try{
+        const res = await fetch("https://www.scorebat.com/video-api/v3/");
+        const data = await res.json();
+        container.innerHTML="";
+        data.response.slice(0,6).forEach(m=>{
+            container.innerHTML+=`
+            <div class="score-card">
+                <h3>${m.title}</h3>
+                <p>${m.competition}</p>
+                <a href="${m.matchviewUrl}" target="_blank">Watch Highlight</a>
+            </div>`;
+        });
+    } catch(err){ console.error(err); container.innerHTML="Could not load matches"; }
 }
-
-catch(error){
-
-container.innerHTML="Could not load matches";
-
-}
-
-}
-
 loadLiveScores();
+
+// Team search
 async function searchTeam(){
-
-const team=document.getElementById("teamInput").value;
-
-const result=document.getElementById("teamResult");
-
-result.innerHTML="Loading...";
-
-try{
-
-const response=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${team}`);
-
-const data=await response.json();
-
-const teamData=data.teams[0];
-
-result.innerHTML=`
-
-<div class="team-card">
-
-<img src="${teamData.strTeamBadge}" width="120">
-
-<h3>${teamData.strTeam}</h3>
-
-<p><b>League:</b> ${teamData.strLeague}</p>
-
-<p><b>Country:</b> ${teamData.strCountry}</p>
-
-<p><b>Stadium:</b> ${teamData.strStadium}</p>
-
-</div>
-
-`;
-
-}
-
-catch(error){
-
-result.innerHTML="Team not found.";
-
-}
-
+    const t=document.getElementById("teamInput").value.trim();
+    const res = document.getElementById("teamResult");
+    if(!t) return;
+    res.innerHTML="Loading...";
+    try{
+        const r = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${t}`);
+        const d = await r.json();
+        const team=d.teams[0];
+        res.innerHTML=`
+        <div class="team-card">
+            <img src="${team.strTeamBadge}" width="120">
+            <h3>${team.strTeam}</h3>
+            <p><b>League:</b> ${team.strLeague}</p>
+            <p><b>Country:</b> ${team.strCountry}</p>
+            <p><b>Stadium:</b> ${team.strStadium}</p>
+        </div>`;
+    } catch(err){ console.error(err); res.innerHTML="Team not found"; }
 }
