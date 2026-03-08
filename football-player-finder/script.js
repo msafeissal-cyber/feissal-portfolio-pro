@@ -12,106 +12,75 @@ searchPlayer();
 }
 });
 
-async function searchPlayer(){
+async function loadLeague(leagueCode, leagueName){
 
-const name = input.value.trim();
-
-if(name === ""){
-playerCard.innerHTML = "<p>Please enter a player name</p>";
-return;
-}
-
-loading.classList.remove("hidden");
-playerCard.innerHTML="";
+const container = document.getElementById("leagueTables");
 
 try{
 
-const response = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${name}`);
+const response = await fetch(`https://api.football-data.org/v4/competitions/${leagueCode}/standings`,{
+
+headers:{
+'X-Auth-Token':'your_real_key_here' 
+}
+
+});
+
 const data = await response.json();
 
-loading.classList.add("hidden");
+const standings = data.standings[0].table.slice(0,10);
 
-if(!data.player){
-playerCard.innerHTML="<p>Player not found</p>";
-return;
-}
+let tableHTML = `
+<div class="table-card">
 
-const player=data.player[0];
+<h3>${leagueName}</h3>
 
-playerCard.innerHTML=`
-<div class="player-card">
+<table>
 
-<img src="${player.strThumb}" alt="">
-
-<h2>${player.strPlayer}</h2>
-
-<p><b>Team:</b> ${player.strTeam}</p>
-
-<p><b>Position:</b> ${player.strPosition}</p>
-
-<p><b>Nationality:</b> ${player.strNationality}</p>
-
-<p>${player.strDescriptionEN ? player.strDescriptionEN.slice(0,120)+"..." : ""}</p>
-
-</div>
+<tr>
+<th>#</th>
+<th>Team</th>
+<th>P</th>
+<th>Pts</th>
+</tr>
 `;
 
-}
+standings.forEach(team=>{
 
-catch(error){
+tableHTML += `
 
-loading.classList.add("hidden");
+<tr>
 
-playerCard.innerHTML="<p>Error loading data</p>";
+<td>${team.position}</td>
 
-}
+<td>
+<img src="${team.team.crest}" width="20">
+${team.team.name}
+</td>
 
-} 
-function quickSearch(name){
+<td>${team.playedGames}</td>
 
-document.getElementById("playerInput").value=name;
+<td>${team.points}</td>
 
-searchPlayer();
-
-}
-async function loadMatches(){
-
-const container=document.getElementById("matches");
-
-try{
-
-const response=await fetch("https://www.scorebat.com/video-api/v3/");
-const data=await response.json();
-
-container.innerHTML="";
-
-data.response.slice(0,6).forEach(match=>{
-
-container.innerHTML+=`
-
-<div class="match-card">
-
-<h3>${match.title}</h3>
-
-<iframe src="${match.matchviewUrl}" allowfullscreen></iframe>
-
-<p>${match.competition}</p>
-
-</div>
+</tr>
 
 `;
 
 });
 
+tableHTML += "</table></div>";
+
+container.innerHTML += tableHTML;
+
 }
 
 catch(error){
 
-container.innerHTML="Could not load matches";
+console.log("Error loading league", error);
 
 }
 
-}
+} 
 
 loadMatches();
 async function loadLeagueTables(){
@@ -162,3 +131,12 @@ console.error(error);
 }
 
 loadLeagueTables();
+document.getElementById("leagueTables").innerHTML="";
+
+loadLeague("PL","Premier League");
+
+loadLeague("PD","La Liga");
+
+loadLeague("SA","Serie A");
+
+loadLeague("CL","Champions League");
