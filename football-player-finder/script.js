@@ -140,3 +140,64 @@ loadLeague("PD","La Liga");
 loadLeague("SA","Serie A");
 
 loadLeague("CL","Champions League");
+async function comparePlayers(){
+
+const p1=document.getElementById("player1").value;
+const p2=document.getElementById("player2").value;
+
+const result=document.getElementById("comparisonResult");
+
+result.innerHTML="Loading...";
+
+try{
+
+const r1=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p1}`);
+const d1=await r1.json();
+
+const r2=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${p2}`);
+const d2=await r2.json();
+
+const player1=d1.player[0];
+const player2=d2.player[0];
+
+result.innerHTML=`
+
+<div class="compare-card">
+
+<img src="${player1.strThumb}" width="100">
+
+<h3>${player1.strPlayer}</h3>
+
+<p>Team: ${player1.strTeam}</p>
+
+<p>Position: ${player1.strPosition}</p>
+
+<p>Nationality: ${player1.strNationality}</p>
+
+</div>
+
+<div class="compare-card">
+
+<img src="${player2.strThumb}" width="100">
+
+<h3>${player2.strPlayer}</h3>
+
+<p>Team: ${player2.strTeam}</p>
+
+<p>Position: ${player2.strPosition}</p>
+
+<p>Nationality: ${player2.strNationality}</p>
+
+</div>
+
+`;
+
+}
+
+catch(error){
+
+result.innerHTML="Players not found.";
+
+}
+
+           }
