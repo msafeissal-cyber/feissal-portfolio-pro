@@ -58,3 +58,33 @@ margin-bottom:10px;
 .hidden{
 display:none;
 } 
+.top-players{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+margin-top:20px;
+}
+
+.top-card{
+background:#1c1c1c;
+padding:10px;
+border-radius:10px;
+width:120px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.top-card:hover{
+transform:scale(1.1);
+}
+
+.top-card img{
+width:100%;
+border-radius:8px;
+}
+
+.top-card p{
+margin-top:5px;
+font-size:14px;
+}
