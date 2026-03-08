@@ -200,3 +200,38 @@ console.error(error);
 }
 
 loadLeagueTables();
+.compare-container{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
+
+.compare-container input{
+padding:8px;
+border-radius:5px;
+border:none;
+}
+
+.compare-container button{
+padding:8px 15px;
+background:#00ff99;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#comparisonResult{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+}
+
+.compare-card{
+background:#1c1c1c;
+padding:15px;
+border-radius:10px;
+width:220px;
+text-align:center;
+  }
