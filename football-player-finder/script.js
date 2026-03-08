@@ -67,3 +67,10 @@ playerCard.innerHTML="<p>Error loading data</p>";
 }
 
 } 
+function quickSearch(name){
+
+document.getElementById("playerInput").value=name;
+
+searchPlayer();
+
+}
