@@ -201,3 +201,43 @@ result.innerHTML="Players not found.";
 }
 
            }
+async function loadLiveScores(){
+
+const container=document.getElementById("liveScores");
+
+try{
+
+const response=await fetch("https://www.scorebat.com/video-api/v3/");
+const data=await response.json();
+
+container.innerHTML="";
+
+data.response.slice(0,6).forEach(match=>{
+
+container.innerHTML+=`
+
+<div class="score-card">
+
+<h3>${match.title}</h3>
+
+<p>${match.competition}</p>
+
+<a href="${match.matchviewUrl}" target="_blank">Watch Highlight</a>
+
+</div>
+
+`;
+
+});
+
+}
+
+catch(error){
+
+container.innerHTML="Could not load matches";
+
+}
+
+}
+
+loadLiveScores();
