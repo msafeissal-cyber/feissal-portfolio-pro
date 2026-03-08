@@ -241,3 +241,46 @@ container.innerHTML="Could not load matches";
 }
 
 loadLiveScores();
+async function searchTeam(){
+
+const team=document.getElementById("teamInput").value;
+
+const result=document.getElementById("teamResult");
+
+result.innerHTML="Loading...";
+
+try{
+
+const response=await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${team}`);
+
+const data=await response.json();
+
+const teamData=data.teams[0];
+
+result.innerHTML=`
+
+<div class="team-card">
+
+<img src="${teamData.strTeamBadge}" width="120">
+
+<h3>${teamData.strTeam}</h3>
+
+<p><b>League:</b> ${teamData.strLeague}</p>
+
+<p><b>Country:</b> ${teamData.strCountry}</p>
+
+<p><b>Stadium:</b> ${teamData.strStadium}</p>
+
+</div>
+
+`;
+
+}
+
+catch(error){
+
+result.innerHTML="Team not found.";
+
+}
+
+}
