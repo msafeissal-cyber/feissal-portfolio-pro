@@ -235,3 +235,27 @@ border-radius:10px;
 width:220px;
 text-align:center;
   }
+.live-scores{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.score-card{
+background:#1c1c1c;
+padding:15px;
+border-radius:10px;
+width:250px;
+text-align:center;
+}
+
+.score-card h3{
+font-size:16px;
+margin-bottom:10px;
+}
+
+.score-card p{
+font-size:14px;
+  }
