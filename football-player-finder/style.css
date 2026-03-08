@@ -1,295 +1,163 @@
-body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
-text-align:center;
-padding:40px;
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color: white;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
 
-h1{
-margin-bottom:30px;
+header h1 {
+    margin-bottom: 10px;
 }
 
-.search-box{
-margin-bottom:30px;
+header p {
+    margin-bottom: 30px;
+    font-weight: 600;
 }
 
-input{
-padding:12px;
-font-size:16px;
-width:230px;
-border:none;
-border-radius:6px;
+.search-box {
+    margin-bottom: 20px;
 }
 
-button{
-padding:12px 18px;
-font-size:16px;
-background:#FFD700;
-border:none;
-border-radius:6px;
-cursor:pointer;
+input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
 }
 
-button:hover{
-background:#ffc400;
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background: #FFD700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.player-card{
-background:#1c1c1c;
-padding:25px;
-border-radius:12px;
-width:280px;
-margin:auto;
-margin-top:20px;
-box-shadow:0 0 15px rgba(0,0,0,0.5);
+button:hover {
+    background: #ffc400;
 }
 
-.player-card img{
-width:140px;
-border-radius:50%;
-margin-bottom:10px;
+.hidden { display: none; }
+
+/* Top players */
+.top-players {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-.player-card h2{
-margin-bottom:10px;
+.top-card {
+    background: #1c1c1c;
+    padding: 10px;
+    border-radius: 10px;
+    width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s;
 }
 
-.hidden{
-display:none;
+.top-card:hover { transform: scale(1.1); }
+
+.top-card img { width: 100%; border-radius: 8px; }
+.top-card p { margin-top: 5px; font-size: 14px; }
+
+/* Player card */
+.player-card {
+    background: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    width: 280px;
+    margin: 20px auto;
+}
+
+.player-card img { width: 120px; border-radius: 50%; margin-bottom: 10px; }
+
+/* Compare container */
+.compare-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#comparisonResult {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.compare-card {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 10px;
+    width: 220px;
+    text-align: center;
+}
+
+/* League Tables */
+.league-tables {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.table-card {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 10px;
+    width: 320px;
+    text-align: left;
+    color: white;
+}
+
+.table-card table { width: 100%; border-collapse: collapse; }
+.table-card th, .table-card td { padding: 6px; border-bottom: 1px solid #333; font-size: 14px; text-align: center; }
+.table-card th { background: #222; }
+
+/* Live Scores */
+.live-scores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.score-card {
+    background: #1c1c1c;
+    padding: 15px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+}
+
+.score-card h3 { font-size: 16px; margin-bottom: 10px; }
+.score-card p { font-size: 14px; }
+
+/* Team search */
+.team-search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#teamResult {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.team-card {
+    background: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
 } 
-.top-players{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:20px;
-margin-top:20px;
-}
-
-.top-card{
-background:#1c1c1c;
-padding:10px;
-border-radius:10px;
-width:120px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.top-card:hover{
-transform:scale(1.1);
-}
-
-.top-card img{
-width:100%;
-border-radius:8px;
-}
-
-.top-card p{
-margin-top:5px;
-font-size:14px;
-}
-.matches-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:20px;
-}
-
-.match-card{
-background:#1c1c1c;
-padding:15px;
-border-radius:10px;
-width:300px;
-text-align:center;
-}
-
-.match-card iframe{
-width:100%;
-height:170px;
-border:none;
-border-radius:8px;
-}
-
-.match-card h3{
-font-size:16px;
-margin-bottom:10px;
-}
-.league-tables{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:20px;
-}
-
-.table-card{
-background:#1c1c1c;
-padding:15px;
-border-radius:10px;
-width:320px;
-text-align:left;
-color:white;
-}
-
-.table-card h3{
-text-align:center;
-margin-bottom:10px;
-}
-
-.table-card table{
-width:100%;
-border-collapse:collapse;
-}
-
-.table-card th, .table-card td{
-padding:6px;
-border-bottom:1px solid #333;
-text-align:center;
-font-size:14px;
-}
-
-.table-card th{
-background:#222;
-}
-async function loadLeagueTables(){
-const container = document.getElementById("leagueTables");
-container.innerHTML = "Loading league tables...";
-
-try{
-const response = await fetch("https://api.football-data.org/v4/competitions/PL/standings", {
-  headers: { 'X-Auth-Token': 'YOUR_API_KEY_HERE' }
-});
-const data = await response.json();
-
-container.innerHTML = "";
-
-const standings = data.standings[0].table.slice(0, 10); // top 10 teams
-
-let tableHTML = `
-<div class="table-card">
-<h3>Premier League</h3>
-<table>
-<tr>
-<th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th>
-</tr>
-`;
-
-standings.forEach(team=>{
-tableHTML += `
-<tr>
-<td>${team.position}</td>
-<td><img src="${team.team.crest}" style="width:20px;vertical-align:middle;margin-right:5px;">${team.team.name}</td>
-<td>${team.playedGames}</td>
-<td>${team.won}</td>
-<td>${team.draw}</td>
-<td>${team.lost}</td>
-<td>${team.points}</td>
-</tr>
-`;
-});
-
-tableHTML += "</table></div>";
-
-container.innerHTML = tableHTML;
-
-}catch(error){
-container.innerHTML = "<p>Could not load league tables (API key required)</p>";
-console.error(error);
-}
-}
-
-loadLeagueTables();
-.compare-container{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:20px;
-}
-
-.compare-container input{
-padding:8px;
-border-radius:5px;
-border:none;
-}
-
-.compare-container button{
-padding:8px 15px;
-background:#00ff99;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-#comparisonResult{
-display:flex;
-justify-content:center;
-gap:30px;
-margin-top:30px;
-}
-
-.compare-card{
-background:#1c1c1c;
-padding:15px;
-border-radius:10px;
-width:220px;
-text-align:center;
-  }
-.live-scores{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:20px;
-}
-
-.score-card{
-background:#1c1c1c;
-padding:15px;
-border-radius:10px;
-width:250px;
-text-align:center;
-}
-
-.score-card h3{
-font-size:16px;
-margin-bottom:10px;
-}
-
-.score-card p{
-font-size:14px;
-  }
-.team-search{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:20px;
-}
-
-.team-search input{
-padding:8px;
-border-radius:5px;
-border:none;
-}
-
-.team-search button{
-padding:8px 15px;
-background:#00ff99;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-#teamResult{
-display:flex;
-justify-content:center;
-margin-top:30px;
-}
-
-.team-card{
-background:#1c1c1c;
-padding:20px;
-border-radius:10px;
-width:300px;
-text-align:center;
-}
