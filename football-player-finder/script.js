@@ -18,7 +18,7 @@ async function searchPlayer(){
       const p = data.player[0];
       playerCard.innerHTML = `
         <div class="player-card">
-          <img src="${p.strThumb}" width="120">
+          <img src="${p.strThumb || 'https://via.placeholder.com/120'}" width="120">
           <h2>${p.strPlayer}</h2>
           <p>Team: ${p.strTeam}</p>
           <p>Position: ${p.strPosition}</p>
