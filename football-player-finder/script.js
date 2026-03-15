@@ -63,42 +63,50 @@ function quickSearch(name){
 
 
 // LIVE MATCH HIGHLIGHTS
-async function loadLiveScores(){
 
-  const container = document.getElementById("liveScores");
+async function loadMatchTracker(){
 
-  container.innerHTML = "Loading live matches...";
+const container = document.getElementById("matchTracker");
 
-  try{
+container.innerHTML = "Loading matches...";
 
-    const res = await fetch("https://www.scorebat.com/video-api/v3/");
-    const data = await res.json();
+try{
 
-    container.innerHTML = "";
+const res = await fetch("https://www.scorebat.com/video-api/v3/");
+const data = await res.json();
 
-    data.response.slice(0,6).forEach(match => {
+container.innerHTML = "";
 
-      container.innerHTML += `
-        <div class="score-card">
-          <h3>${match.title}</h3>
-          <p>${match.competition}</p>
-          <a href="${match.matchviewUrl}" target="_blank">Watch Highlight</a>
-        </div>
-      `;
+data.response.slice(0,8).forEach(match=>{
 
-    });
+container.innerHTML += `
+<div class="match-card">
 
-  }catch(err){
+<h3>${match.title}</h3>
 
-    container.innerHTML = "Could not load matches.";
-    console.error(err);
+<p>${match.competition}</p>
 
-  }
+<p>${match.date}</p>
+
+<a href="${match.matchviewUrl}" target="_blank">
+<button>Watch Highlight</button>
+</a>
+
+</div>
+`;
+
+});
+
+}catch(error){
+
+container.innerHTML = "Could not load matches.";
+console.error(error);
 
 }
 
-loadLiveScores();
+}
 
+loadMatchTracker();
 
 // TEAM SEARCH
 async function searchTeam(){
