@@ -143,3 +143,45 @@ async function searchTeam(){
   }
 
       } 
+async function loadMatchTracker(){
+
+const container = document.getElementById("matchTracker");
+
+container.innerHTML = "Loading matches...";
+
+try{
+
+const res = await fetch("https://www.scorebat.com/video-api/v3/");
+const data = await res.json();
+
+container.innerHTML = "";
+
+data.response.slice(0,8).forEach(match=>{
+
+container.innerHTML += `
+<div class="match-card">
+
+<h3>${match.title}</h3>
+
+<p>${match.competition}</p>
+
+<p>${match.date}</p>
+
+<iframe src="${match.embed}" allowfullscreen></iframe>
+
+</div>
+`;
+
+});
+
+}catch(error){
+
+container.innerHTML = "Could not load matches.";
+
+console.error(error);
+
+}
+
+}
+
+loadMatchTracker();
