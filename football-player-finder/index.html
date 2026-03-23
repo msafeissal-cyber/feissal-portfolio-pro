@@ -52,7 +52,18 @@
   <button onclick="comparePlayers()">Compare</button>
 </div>
 <div id="comparisonResult"></div>
+<div class="dynamic-league">
+  <h3>⚡ Update League Manually</h3>
+  <form id="matchForm">
+    <input type="text" id="team1" placeholder="Team 1" required>
+    <input type="number" id="goals1" placeholder="Goals" min="0" required>
+    <input type="text" id="team2" placeholder="Team 2" required>
+    <input type="number" id="goals2" placeholder="Goals" min="0" required>
+    <button type="submit">Add Match</button>
+  </form>
 
+  <div id="dynamicLeagueTable"></div>
+</div>
 <h2>🏟️ Search Football Teams</h2>
 <div class="team-search">
   <input type="text" id="teamInput" placeholder="Enter team name">
