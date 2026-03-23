@@ -98,7 +98,76 @@ async function loadLiveScores(){
 }
 
 loadLiveScores();
+const leagueSelect = document.getElementById("leagueSelect");
+const leagueTable = document.getElementById("leagueTable");
 
+leagueSelect.addEventListener("change", loadLeague);
+
+async function loadLeague(){
+
+const leagueCode = leagueSelect.value;
+
+leagueTable.innerHTML = "Loading table...";
+
+try{
+
+const res = await fetch(
+`https://api.football-data.org/v4/competitions/${leagueCode}/standings`,
+{
+headers:{
+"X-Auth-Token":"YOUR_API_KEY_HERE"
+}
+}
+);
+
+const data = await res.json();
+
+const teams = data.standings[0].table;
+
+let tableHTML = `
+<table>
+<tr>
+<th>#</th>
+<th>Team</th>
+<th>P</th>
+<th>W</th>
+<th>D</th>
+<th>L</th>
+<th>Pts</th>
+</tr>
+`;
+
+teams.forEach(team=>{
+
+tableHTML += `
+<tr>
+<td>${team.position}</td>
+<td>${team.team.name}</td>
+<td>${team.playedGames}</td>
+<td>${team.won}</td>
+<td>${team.draw}</td>
+<td>${team.lost}</td>
+<td>${team.points}</td>
+</tr>
+`;
+
+});
+
+tableHTML += "</table>";
+
+leagueTable.innerHTML = tableHTML;
+
+}catch(error){
+
+leagueTable.innerHTML = "Could not load table.";
+
+console.error(error);
+
+}
+
+}
+
+loadLeague();
 
 // TEAM SEARCH
 async function searchTeam(){
@@ -167,7 +236,9 @@ container.innerHTML += `
 
 <p>${match.date}</p>
 
-<iframe src="${match.embed}" allowfullscreen></iframe>
+<a href="${match.matchviewUrl}" target="_blank">
+<button>Watch Highlight</button>
+</a>
 
 </div>
 `;
@@ -177,7 +248,6 @@ container.innerHTML += `
 }catch(error){
 
 container.innerHTML = "Could not load matches.";
-
 console.error(error);
 
 }
