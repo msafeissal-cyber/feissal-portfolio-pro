@@ -74,11 +74,16 @@ button:hover{
   margin-top:20px;
 }
 
+.match-card, .table-card{
+  width:320px;
+}
+
 .match-card iframe{
   width:100%;
-  height:170px;
+  height:180px;
   border:none;
   border-radius:8px;
+  margin-top:10px;
 }
 
 .table-card table{
@@ -99,31 +104,4 @@ button:hover{
 
 .hidden{
   display:none;
-}
-.match-card{
-
-background:#1c1c1c;
-
-padding:20px;
-
-border-radius:12px;
-
-width:320px;
-
-box-shadow:0 0 15px rgba(0,0,0,0.5);
-
-}
-
-.match-card iframe{
-
-width:100%;
-
-height:180px;
-
-border:none;
-
-border-radius:8px;
-
-margin-top:10px;
-
 }
