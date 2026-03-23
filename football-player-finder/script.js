@@ -130,6 +130,27 @@ let tableHTML = `
 <th>#</th>
 <th>Team</th>
 <th>P</th>
+async function loadLeagueTables(){
+
+const container = document.getElementById("leagueTables");
+
+container.innerHTML = "Loading league tables...";
+
+try{
+
+const res = await fetch("https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4328&s=2023-2024");
+const data = await res.json();
+
+container.innerHTML = "";
+
+let tableHTML = `
+<div class="table-card">
+<h3>Premier League</h3>
+<table>
+<tr>
+<th>#</th>
+<th>Team</th>
+<th>P</th>
 <th>W</th>
 <th>D</th>
 <th>L</th>
@@ -137,29 +158,32 @@ let tableHTML = `
 </tr>
 `;
 
-teams.forEach(team=>{
+data.table.slice(0,10).forEach(team=>{
 
 tableHTML += `
 <tr>
-<td>${team.position}</td>
-<td>${team.team.name}</td>
-<td>${team.playedGames}</td>
-<td>${team.won}</td>
-<td>${team.draw}</td>
-<td>${team.lost}</td>
-<td>${team.points}</td>
+<td>${team.intRank}</td>
+<td>
+<img src="${team.strTeamBadge}" width="20">
+${team.strTeam}
+</td>
+<td>${team.intPlayed}</td>
+<td>${team.intWin}</td>
+<td>${team.intDraw}</td>
+<td>${team.intLoss}</td>
+<td>${team.intPoints}</td>
 </tr>
 `;
 
 });
 
-tableHTML += "</table>";
+tableHTML += "</table></div>";
 
-leagueTable.innerHTML = tableHTML;
+container.innerHTML = tableHTML;
 
 }catch(error){
 
-leagueTable.innerHTML = "Could not load table.";
+container.innerHTML = "Could not load league tables.";
 
 console.error(error);
 
@@ -167,8 +191,7 @@ console.error(error);
 
 }
 
-loadLeague();
-
+loadLeagueTables();
 // TEAM SEARCH
 async function searchTeam(){
 
