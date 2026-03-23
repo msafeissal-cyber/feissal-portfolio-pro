@@ -63,50 +63,42 @@ function quickSearch(name){
 
 
 // LIVE MATCH HIGHLIGHTS
+async function loadLiveScores(){
 
-async function loadMatchTracker(){
+  const container = document.getElementById("liveScores");
 
-const container = document.getElementById("matchTracker");
+  container.innerHTML = "Loading live matches...";
 
-container.innerHTML = "Loading matches...";
+  try{
 
-try{
+    const res = await fetch("https://www.scorebat.com/video-api/v3/");
+    const data = await res.json();
 
-const res = await fetch("https://www.scorebat.com/video-api/v3/");
-const data = await res.json();
+    container.innerHTML = "";
 
-container.innerHTML = "";
+    data.response.slice(0,6).forEach(match => {
 
-data.response.slice(0,8).forEach(match=>{
+      container.innerHTML += `
+        <div class="score-card">
+          <h3>${match.title}</h3>
+          <p>${match.competition}</p>
+          <a href="${match.matchviewUrl}" target="_blank">Watch Highlight</a>
+        </div>
+      `;
 
-container.innerHTML += `
-<div class="match-card">
+    });
 
-<h3>${match.title}</h3>
+  }catch(err){
 
-<p>${match.competition}</p>
+    container.innerHTML = "Could not load matches.";
+    console.error(err);
 
-<p>${match.date}</p>
-
-<a href="${match.matchviewUrl}" target="_blank">
-<button>Watch Highlight</button>
-</a>
-
-</div>
-`;
-
-});
-
-}catch(error){
-
-container.innerHTML = "Could not load matches.";
-console.error(error);
+  }
 
 }
 
-}
+loadLiveScores();
 
-loadMatchTracker();
 
 // TEAM SEARCH
 async function searchTeam(){
@@ -150,46 +142,4 @@ async function searchTeam(){
 
   }
 
-      } 
-async function loadMatchTracker(){
-
-const container = document.getElementById("matchTracker");
-
-container.innerHTML = "Loading matches...";
-
-try{
-
-const res = await fetch("https://www.scorebat.com/video-api/v3/");
-const data = await res.json();
-
-container.innerHTML = "";
-
-data.response.slice(0,8).forEach(match=>{
-
-container.innerHTML += `
-<div class="match-card">
-
-<h3>${match.title}</h3>
-
-<p>${match.competition}</p>
-
-<p>${match.date}</p>
-
-<iframe src="${match.embed}" allowfullscreen></iframe>
-
-</div>
-`;
-
-});
-
-}catch(error){
-
-container.innerHTML = "Could not load matches.";
-
-console.error(error);
-
 }
-
-}
-
-loadMatchTracker();
